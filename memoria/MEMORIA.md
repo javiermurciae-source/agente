@@ -161,4 +161,13 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   - Se extrajeron las credenciales de la licencia disponible (Perfil 2): `carlos123@streamzone.one`, clave `Stream_Zone*1`, Perfil 2, PIN `1459`.
   - Se despachó el mensaje oficial estructurado vía `wasend` a Aleja (+573212159428) con éxito (ID `3EB04D22997C611BA6EB11`).
 
+### [2026-10-09] - Respaldo Integral del Agente en Git y Script de Recuperación
+- **Instrucción de Camilo**: Revisar cómo funciona el agente en sí y subirlo a Git para poder recuperarlo rápidamente en caso de contingencia.
+- **Implementación**:
+  - Se estructuró el repositorio Git en `/home/rootkit/agente/` con configuración de seguridad estricta en `.gitignore` (exclusión de `node_modules`, cachés y sesiones sensibles).
+  - Se creó el script maestro de restauración `install.sh` que enlaza automáticamente todos los binarios a `~/.local/bin/`, otorga permisos y restaura dependencias de Baileys/Wasend.
+  - Se creó la documentación unificada en `README.md`.
+  - Se sincronizó y publicó el repositorio privado en GitHub: `https://github.com/javiermurciae-source/agente`.
+
+
 
