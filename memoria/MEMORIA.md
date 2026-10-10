@@ -180,7 +180,9 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
     - `switch/` (57 GB: Super Smash Bros Ultimate, Zelda TotK, Mario Kart 8 Deluxe, DBZ FighterZ)
     - `emuladores/` (Eden.AppImage)
     - `proyectos/` (PocketController con APK, NouTube, etc.)
-  - Al montar `/dev/nvme0n1p2` en el nuevo CachyOS, se accede directamente a los juegos y proyectos de forma 100% aislada, sin mostrar `@`, `@home` ni restos del sistema anterior.
+    - `wallpapers/` (fondos animados MP4 y wallpapers de anime/Catppuccin y Serpantinum)
+    - `agente/` (sistema completo del agente listo para restaurar)
+  - Al montar `/dev/nvme0n1p2` en el nuevo CachyOS, se accede directamente a los juegos, proyectos, wallpapers y agente de forma 100% aislada, sin mostrar `@`, `@home` ni restos del sistema anterior.
 
 
 
