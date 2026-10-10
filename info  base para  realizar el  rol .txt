@@ -1,0 +1,95 @@
+Documento de requerimientos de software
+
+ [SECUREDESK]
+Fecha: [13/08/2026]
+
+Información del Proyecto
+Empresa / Organización
+ Dar códex
+Proyecto
+ SecureDesk
+Fecha de preparación
+  13/08/2026
+Cliente
+  SigmaEntr
+Gerente / Líder de Proyecto
+  Javier Murcia 
+Gerente / Líder de Análisis de negocio y requerimientos
+  Juan Carlos Marin
+
+
+Propósito 
+SECUREDESK es un sistema de gestión de incidentes de ciberseguridad diseñado para apoyar a las organizaciones en el registro, clasificación, seguimiento y gestión de eventos que puedan representar una amenaza para la seguridad de la información.
+El presente documento comprende la especificación de la totalidad del sistema propuesto, incluyendo los principales componentes relacionados con el control de acceso de usuarios, registro y reporte de incidentes, clasificación de incidentes según su nivel de riesgo
+
+
+
+
+Alcance del producto / Software 
+
+
+SECUREDESK será una plataforma para registrar, gestionar y dar seguimiento a incidentes de ciberseguridad desde su detección hasta su cierre para  un   directorio  activo de una empresa . Su alcance contempla:
+• Propósito u objetivo general: centralizar y organizar la gestión de incidentes de ciberseguridad para facilitar su atención, seguimiento y resolución  .
+• Beneficios: mejora la trazabilidad de los incidentes, facilita la asignación de responsables, reduce la pérdida de información y permite consultar el estado de los casos de seguridad.
+• Objetivos y metas: fortalecer la gestión interna de seguridad, mantener un historial de  incidentes, priorizar los eventos de mayor riesgo y proporcionar información para apoyar la toma de decisiones.
+
+
+
+
+
+
+
+
+Funcionalidades del producto
+
+
+Las principales funcionalidades especificadas para SECUREDESK son:
+1. Inicio de sesión y control de acceso.
+Las funcionalidades detalladas se desarrollarán posteriormente mediante los requisitos funcionales correspondientes.
+2. Visualización de usuarios 
+3. Registro y reporte de incidentes de ciberseguridad.
+4. Clasificación y priorización de incidentes.
+5. Asignación y seguimiento de incidentes.
+
+
+
+
+
+
+Clases y características de usuarios
+6. Gestión de usuarios y activos
+SECUREDESK utiliza Active Directory para administrar usuarios, equipos, grupos y permisos según sus responsabilidades.
+Empleado: reporta y consulta incidentes. 
+Analista SOC: monitorea alertas, analiza y gestiona incidentes. 
+Administrador: administra usuarios, equipos, permisos y políticas de seguridad. 
+7. Gestión de incidentes
+El empleado reporta incidentes. El analista SOC los analiza, actualiza y cierra. El administrador gestiona la configuración y permisos.
+8. Historial de incidentes
+Permite consultar incidentes, eventos y acciones realizadas.
+9. Reportes de seguridad
+Genera reportes sobre incidentes, alertas y eventos del dominio.
+10. Panel principal
+Muestra un resumen de usuarios, equipos, alertas e incidentes del entorno Active Directory y SOC.
+
+
+
+
+Entorno operativo
+SECUREDESK se plantea como una aplicación web accesible desde computadores de escritorio y portátiles conectados a la red de Dark códex. El sistema funcionará mediante un navegador web moderno y utilizará una base de datos para almacenar usuarios, roles, incidentes, activos, acciones y reportes. Los equipos cliente podrán utilizar Windows 10/11, Linux o macOS con Google Chrome, Microsoft Edge o Mozilla Firefox. El sistema coexistirá con la infraestructura de red de la organización y con el servidor de aplicación y servidor de base de datos destinados al proyecto.
+
+objetivos  de  desarrollo 
+
+1. Inicio de sesión y control de acceso
+2. Validación de usuarios mediante Active Directory
+3. Gestión de usuarios
+4. Gestión de roles y permisos
+5. Visualización de usuarios y equipos
+6. Registro de incidentes
+7. Reporte de incidentes
+8. Clasificación de incidentes según su nivel de riesgo
+9. Priorización según el nivel de riesgo
+10. Asignación de incidentes
+11. Seguimiento y cierre de incidentes
+12. Gestión de activos tecnológicos
+13. Consulta de historial de incidentes
+14. Generación de reportes

@@ -1,0 +1,99 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "type": "iterm",
+    "source": "/data/data/com.termux.launcher.nix/files/home/.config/fastfetch/descargas.gif",
+    "position": "left",
+    "width": 22,
+    "preserveAspectRatio": true,
+    "printRemaining": false,
+    "padding": {
+      "top": 0,
+      "left": 1,
+      "right": 3,
+      "bottom": 0
+    }
+  },
+  "display": {
+    "separator": "  ",
+    "disableLinewrap": true,
+    "hideCursor": true,
+    "brightColor": false,
+    "key": {
+      "width": 10,
+      "type": "string"
+    },
+    "size": {
+      "ndigits": 1,
+      "maxPrefix": "GB"
+    },
+    "percent": {
+      "type": [
+        "num"
+      ],
+      "ndigits": 0
+    }
+  },
+  "modules": [
+    {
+      "type": "custom",
+      "format": "{#blue}󰆍 termux{#} {#dim_black}·{#} {#magenta}material you{#}"
+    },
+    {
+      "type": "custom",
+      "format": "{#blue}──────────{#magenta}──────────{#cyan}──────────{#}"
+    },
+    {
+      "type": "command",
+      "key": "{#blue}󰀲 os{#}",
+      "text": "env -i /system/bin/getprop ro.build.version.release 2>/dev/null | sed 's/^/Android /' || echo 'Android'",
+      "format": "{}"
+    },
+    {
+      "type": "command",
+      "key": "{#blue}󰄜 device{#}",
+      "text": "python3 -c \"import subprocess; m = subprocess.run(['env', '-i', '/system/bin/getprop', 'ro.product.marketname'], capture_output=True, text=True).stdout.strip(); print(m if m else subprocess.run(['env', '-i', '/system/bin/getprop', 'ro.product.model'], capture_output=True, text=True).stdout.strip())\"",
+      "format": "{}"
+    },
+    {
+      "type": "command",
+      "key": "{#blue}󰌽 kernel{#}",
+      "outputColor": "light_white",
+      "text": "uname -r | cut -d- -f1-2",
+      "format": "{}"
+    },
+    {
+      "type": "uptime",
+      "key": "{#blue}󰥔 uptime{#}",
+      "format": "{#white}{days}{#}{#dim_black}d{#} {#white}{hours}{#}{#dim_black}h{#} {#white}{minutes}{#}{#dim_black}m{#}"
+    },
+    {
+      "type": "custom",
+      "format": " "
+    },
+    {
+      "type": "cpu",
+      "key": "{#cyan}󰻠 cpu{#}",
+      "format": "{#white}{cores-logical}{#}{#cyan}x{#} {#dim_black}=>{#} {#white}{freq-max}{#}",
+      "temp": false
+    },
+    {
+      "type": "memory",
+      "key": "{#cyan}󰍛 memory{#}",
+      "format": "{#white}{used}{#} {#dim_black}/{#} {#white}{total}{#} {#dim_black}·{#} {#cyan}{percentage}{#}"
+    },
+    {
+      "type": "command",
+      "key": "{#cyan}󰋊 disk{#}",
+      "outputColor": "light_white",
+      "text": "python3 -c \"import shutil; u = shutil.disk_usage('/data/data/com.termux.launcher.nix/files/home'); print(f'{u.used/(1024**3):.1f} GiB / {u.total/(1024**3):.1f} GiB · {u.used/u.total*100:.0f}%')\"",
+      "format": "{}"
+    },
+    {
+      "type": "command",
+      "key": "{#cyan}󰩟 ip{#}",
+      "text": "python3 /data/data/com.termux.launcher.nix/files/home/.config/fastfetch/wlan_ip.py",
+      "format": "{}"
+    }
+  ]
+}

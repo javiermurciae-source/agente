@@ -1,0 +1,33 @@
+# Dependencias Node / Bun
+node_modules/
+tools/wasend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Credenciales y sesiones sensibles
+*auth_info*
+*.session
+*.session*
+*.session-journal
+*.key
+*.env
+*.env.*
+*.token
+token.json
+session.json
+
+# Python cache y binarios compilados
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Archivos temporales de editores y suites ofimáticas
+.~*
+*.~lock*
+*.tmp
+.DS_Store
+*.swp
+*.swo
