@@ -169,5 +169,19 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   - Se creó la documentación unificada en `README.md`.
   - Se sincronizó y publicó el repositorio privado en GitHub: `https://github.com/javiermurciae-source/agente`.
 
+### [2026-10-09] - Reestructuración de Particiones NVMe y Aislamiento de Juegos en Btrfs
+- **Instrucción de Camilo**: Preparar el sistema para formatear CachyOS salvando los juegos en una partición dedicada limpia (sin home viejo ni basura).
+- **Implementación**:
+  - **Eliminación de Windows**: Se eliminaron las particiones `/dev/nvme0n1p3` (16 MB Microsoft) y `/dev/nvme0n1p4` (150 GB Windows NTFS).
+  - **Partición del Nuevo Sistema**: Se creó `/dev/nvme0n1p3` (150 GB Btrfs, etiqueta `cachyos_new`, UUID `f8895ace-b6f6-49cc-a1c4-97fb66ca00e3`) para instalar y formatear el nuevo CachyOS.
+  - **Partición Dedicada de Juegos**: En `/dev/nvme0n1p2` (326 GB Btrfs, etiqueta `JUEGOS`) se creó el subvolumen aislado `@juegos` y se estableció como el subvolumen por defecto (`btrfs subvolume set-default`).
+  - **Estructura Limpia de Juegos y Proyectos**: Dentro de `@juegos` residen físicamente:
+    - `pc/Mortal Kombat 11` (110 GB)
+    - `switch/` (57 GB: Super Smash Bros Ultimate, Zelda TotK, Mario Kart 8 Deluxe, DBZ FighterZ)
+    - `emuladores/` (Eden.AppImage)
+    - `proyectos/` (PocketController con APK, NouTube, etc.)
+  - Al montar `/dev/nvme0n1p2` en el nuevo CachyOS, se accede directamente a los juegos y proyectos de forma 100% aislada, sin mostrar `@`, `@home` ni restos del sistema anterior.
+
+
 
 
