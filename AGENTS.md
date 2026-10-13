@@ -32,6 +32,10 @@
   - Ante cualquier requerimiento, disparar de inmediato la skill adecuada y generar el entregable o ejecutar la acción técnica en silencio.
   - Prohibido responder con explicaciones largas, listas teóricas o manuales de uso a menos que se pidan explícitamente.
   - Entregar únicamente el resultado final en 2 a 5 líneas con enlaces a los archivos creados.
+- **Ahorro Extremo de Tokens en Proyectos (Graphify & RTK)**:
+  - Al trabajar en cualquier base de código o proyecto en `~/Proyectos/`, sugerir o ejecutar de inmediato `graphify .` para mapear la arquitectura y navegar la wiki local (`graphify-out/wiki/index.md`) en vez de quemar tokens leyendo archivos crudos a ciegas.
+  - Usar siempre el proxy `rtk` para comandos de terminal (`rtk git status`, `rtk git diff`, `rtk ls`, etc.).
+
 
 ---
 

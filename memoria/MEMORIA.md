@@ -593,4 +593,7 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   3. **Ahorro de Contexto (71x menos tokens)**:
      - Indexación local determinista vía AST sin costo de API (`graphify .` o `graphify extract . --code-only`).
      - Generación de Wiki local en Markdown (`graphify-out/wiki/index.md`) y exportación interactiva a `graph.html` y Obsidian.
+  4. **Regla Obligatoria fijada por Camilo**:
+     - Cada vez que se aborde un proyecto con múltiples archivos de código (en `~/Proyectos/` o nuevo repo), sugerir o ejecutar de inmediato `graphify .` para evitar el gasto desmedido de tokens leyendo código crudo.
+
 
