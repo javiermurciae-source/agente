@@ -568,10 +568,16 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   4. *Dashboard Web con Buscador Visual*: Servidor HTTP integrado ([`scripts/dramabox_server.py`](file:///home/rootkit/agente/scripts/dramabox_server.py)) con interfaz estilo Apple TV / Netflix, buscador instantáneo, filtrado por idioma, sincronización en vivo y visor del JSON literal del API.
   5. *Servicio Persistente en localhost:8080*: Desplegado como servicio systemd de usuario en `~/.config/systemd/user/dramabox-web.service` (`systemctl --user start/stop/restart dramabox-web`). Acceso directo y abierto en el navegador en [http://localhost:8080](http://localhost:8080).
 
-### [2026-10-13] - Máxima Rapidez y Eficiencia Quirúrgica
-- **Instrucción de Camilo**: «necesito que seas mas rapido eficiente» y «analiza para ver como hacerte mas concisa y que hagas mas las cosas pues con tus skills y todo».
-- **Criterio Reforzado e Inquebrantable**:
-  - **Action-First (Hacer antes de hablar)**: No explicar qué skill existe ni cómo se usaría; activarla directamente en segundo plano y generar el entregable listo.
-  - **Cero teoría no pedida**: Si Camilo no pide una lección, no soltar listas descriptivas ni explicaciones largas.
-  - **Respuestas telegráficas**: Máximo 2 a 4 líneas informando el archivo generado o el comando ejecutado.
-
+### [2026-10-13] - Incorporación del Trío Maestro de Ahorro de Tokens: Caveman, RTK y Grill-Me
+- **Instrucción de Camilo**: «skills caveman, rtk-ai/rtk, mattpocock/skills/grill-me esto ayuda para tokens investiga una por una y mira como la integramos para que realmente ayuden muccho».
+- **Implementación y Despliegue**:
+  1. **Caveman (`skills/caveman/`)**:
+     - Compresión extrema de tokens de salida.
+     - Aplica el patrón *Answer-First*, elimina toda ceremonia de chat ("Claro, con gusto"), utiliza palabras cortas y fragmentos técnicos exactos.
+  2. **RTK (Rust Token Killer - `rtk-ai/rtk`)**:
+     - Binario nativo v0.52.0 instalado en `~/.local/bin/rtk`.
+     - Reduce del 60% al 90% los tokens de entrada de la terminal filtrando y compactando outputs de `git status`, `git diff`, `git log`, `ls`, `grep`, `pytest`, `npm test` y `cargo`.
+     - Integrado en `install.sh` y documentado en `skills/rtk-token-killer/`.
+  3. **Grill-Me (`skills/grill-me/`)**:
+     - Metodología de interrogación quirúrgica y árbol de decisiones de Matt Pocock.
+     - Evita el desperdicio de tokens por retrabajo o suposiciones erróneas formulando todo el frente de decisiones pendientes en una sola ronda con opciones y recomendación previa.

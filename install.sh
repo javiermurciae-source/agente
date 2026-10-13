@@ -41,7 +41,15 @@ if [ "$AGENTE_DIR" != "$HOME" ]; then
     ln -sf "$AGENTE_DIR/GEMINI.md" "$HOME/GEMINI.md"
 fi
 
-# 4. Instalación de dependencias de WhatsApp (tools/wasend)
+# 4. Instalación de RTK (Rust Token Killer) para optimización de tokens
+if ! command -v rtk >/dev/null 2>&1; then
+    echo "⚡ Instalando RTK (Rust Token Killer) para compresión de tokens..."
+    curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/master/install.sh | sh 2>/dev/null || true
+else
+    echo "   ✅ RTK ya instalado y disponible en PATH."
+fi
+
+# 5. Instalación de dependencias de WhatsApp (tools/wasend)
 
 if [ -d "$AGENTE_DIR/tools/wasend" ]; then
     echo "📦 Verificando dependencias de tools/wasend..."
