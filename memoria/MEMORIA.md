@@ -596,4 +596,29 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   4. **Regla Obligatoria fijada por Camilo**:
      - Cada vez que se aborde un proyecto con múltiples archivos de código (en `~/Proyectos/` o nuevo repo), sugerir o ejecutar de inmediato `graphify .` para evitar el gasto desmedido de tokens leyendo código crudo.
 
+### [2026-10-13] - Matriz de Eficiencia y Despacho Quirúrgico (36 Skills Intactas)
+- **Instrucción de Camilo**: «analiza todas tus skills y haz que seas mas eficiente sin modificarlas las skills solo analiza bien para ver yo quiero que seas eficiente».
+- **Protocolo de Máxima Velocidad (Cero Vacilación ni Retrabajo)**:
+  1. **Ahorro de Contexto y Tokens**:
+     - Input terminal: `rtk <comando>` (filtro de 60-90%).
+     - Proyectos de código: `graphify .` (wiki AST sin leer archivos crudos).
+     - Ambigüedad técnica: `grill-me` (1 sola ronda de preguntas con recomendación).
+     - Output de chat: `caveman` (answer-first, conciso, telegráfico).
+  2. **Ofimática Directa**:
+     - DOCX: `docx` (OpenXML) | IEEE UNISANGIL: `reversing-clonacion-docx-ieee`.
+     - PDF: `pdf` (pdfplumber/pdftoppm/tesseract OCR).
+     - PPT / Diapositivas: `presentaciones-elite-html` (`build-deck` / `preview-deck`) o `pptx`.
+     - Excel / Stream Zone: `vencimientos` (`reportes-vencimientos-excel` / `xlsx`).
+  3. **Scraping y Web**:
+     - Cloudflare/Anti-bot: `scrapling-mcp` (stealth browser Patchright).
+     - Datos JSON estructurados: `just-scrape` (ScrapeGraphAI).
+     - Redes sociales: `agent-reach` (Twitter/X, Reddit, LinkedIn, YouTube).
+     - Acciones de navegador: `agent-browser`.
+  4. **Ingeniería Inversa y Sistema**:
+     - Binarios/APKs: `reverse-engineer-anything` (REA).
+     - Móvil Android: `android-adb-control`.
+     - Niri / Gaming: `control-ventanas-niri-gaming` (Niri IPC).
+     - WhatsApp: `wasend` / `waget`.
+
+
 
