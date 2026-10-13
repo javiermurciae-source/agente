@@ -567,3 +567,10 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   3. *Cero Descarga de Video*: No descarga los archivos de video; indexa metadatos exactos de la API (almacenando el payload `raw_json` íntegro) y descarga las carátulas originales en alta resolución (600x800).
   4. *Dashboard Web con Buscador Visual*: Servidor HTTP integrado ([`scripts/dramabox_server.py`](file:///home/rootkit/agente/scripts/dramabox_server.py)) con interfaz estilo Apple TV / Netflix, buscador instantáneo, filtrado por idioma, sincronización en vivo y visor del JSON literal del API.
   5. *Servicio Persistente en localhost:8080*: Desplegado como servicio systemd de usuario en `~/.config/systemd/user/dramabox-web.service` (`systemctl --user start/stop/restart dramabox-web`). Acceso directo y abierto en el navegador en [http://localhost:8080](http://localhost:8080).
+
+### [2026-10-13] - Máxima Rapidez y Eficiencia Quirúrgica
+- **Instrucción de Camilo**: «necesito que seas mas rapido eficiente».
+- **Criterio Reforzado**:
+  - Respuestas directas al grano, sin explicaciones largas ni rodeos teóricos.
+  - Ejecución en el menor número de comandos posibles.
+  - Prioridad absoluta a la velocidad de entrega y precisión técnica inmediata.
