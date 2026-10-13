@@ -8,10 +8,11 @@ y genera un archivo 'index.html' listo para proyectar, grabar o compartir.
 import os
 import sys
 import json
-import argparse
+from pathlib import Path
 from datetime import datetime
 
-TEMPLATE_PATH = "/home/rootkit/agente/skills/presentaciones-elite-html/templates/master_presentation.html"
+SCRIPT_DIR = Path(__file__).resolve().parent
+TEMPLATE_PATH = os.environ.get("MASTER_PRESENTATION_TEMPLATE") or str(SCRIPT_DIR.parent / "templates" / "master_presentation.html")
 
 DEFAULT_DATA = {
     "DECK_TITLE": "Presentación de Élite con IA — Arquitectura y Rendimiento",
@@ -111,8 +112,9 @@ def build_deck(data_dict, output_path, theme="dark-tech"):
     return output_path
 
 def main():
+    default_out = str(Path.home() / "Proyectos" / "demo-slides" / "index.html")
     parser = argparse.ArgumentParser(description="Compilador de presentaciones HTML de élite")
-    parser.add_argument("-o", "--output", default="/home/rootkit/Proyectos/demo-slides/index.html", help="Ruta del archivo HTML de salida")
+    parser.add_argument("-o", "--output", default=default_out, help="Ruta del archivo HTML de salida")
     parser.add_argument("-t", "--theme", default="dark-tech", choices=["dark-tech", "apple-keynote", "notion-minimal", "neo-brutalist"], help="Tema visual inicial")
     parser.add_argument("-d", "--data", help="Ruta a archivo JSON con datos personalizados")
     parser.add_argument("--demo", action="store_true", help="Generar presentación de demostración con datos estándar")

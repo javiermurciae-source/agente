@@ -12,9 +12,9 @@ Crea la estructura modular estándar:
 import sys
 import os
 import argparse
-import re
+from pathlib import Path
 
-BASE_SKILLS_DIR = "/home/rootkit/agente/skills"
+BASE_SKILLS_DIR = os.environ.get("AGENTE_SKILLS_DIR") or str(Path(__file__).resolve().parents[2])
 
 TEMPLATE_SKILL_MD = """---
 name: {name}

@@ -28,5 +28,7 @@ def preview(file_path):
     print(f"🚀 Presentación abierta en el navegador: {abs_path}")
 
 if __name__ == "__main__":
-    target = sys.argv[1] if len(sys.argv) > 1 else "/home/rootkit/Proyectos/demo-slides/index.html"
+    from pathlib import Path
+    default_target = str(Path.home() / "Proyectos" / "demo-slides" / "index.html")
+    target = sys.argv[1] if len(sys.argv) > 1 else default_target
     preview(target)

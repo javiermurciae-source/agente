@@ -31,7 +31,18 @@ for bin_file in "$AGENTE_DIR/bin/"*; do
     fi
 done
 
-# 3. Instalación de dependencias de WhatsApp (tools/wasend)
+# 3. Enlaces simbólicos para agentes de IA (~/.agents/skills)
+echo "🧠 Enlazando skills y reglas maestras para el agente de IA..."
+mkdir -p "$HOME/.agents"
+ln -sfn "$AGENTE_DIR/skills" "$HOME/.agents/skills"
+
+if [ "$AGENTE_DIR" != "$HOME" ]; then
+    ln -sf "$AGENTE_DIR/AGENTS.md" "$HOME/AGENTS.md"
+    ln -sf "$AGENTE_DIR/GEMINI.md" "$HOME/GEMINI.md"
+fi
+
+# 4. Instalación de dependencias de WhatsApp (tools/wasend)
+
 if [ -d "$AGENTE_DIR/tools/wasend" ]; then
     echo "📦 Verificando dependencias de tools/wasend..."
     if [ ! -d "$AGENTE_DIR/tools/wasend/node_modules" ]; then

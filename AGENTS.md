@@ -47,10 +47,10 @@
 ---
 
 ## Estructura Completa del Agente en el Sistema (`$HOME`)
-El agente cuenta con todas sus carpetas operativas directamente en su directorio raíz (`/home/rootkit`):
+El agente cuenta con todas sus carpetas operativas directamente en su directorio raíz (`$HOME` o `$HOME/agente`):
 
 ```text
-/home/rootkit/
+agente/ (o $HOME/)
 ├── AGENTS.md                  # Este manual maestro con reglas de alto rendimiento
 ├── GEMINI.md                  # Copia espejo del manual para compatibilidad completa
 ├── skills/                    # Recetas de ejecución y habilidades operativas

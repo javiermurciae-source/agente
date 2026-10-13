@@ -14,11 +14,11 @@ import sys
 import os
 import re
 import argparse
-import subprocess
+from pathlib import Path
 
-BASE_SKILLS_DIR = "/home/rootkit/agente/skills"
-GLOBAL_CONFIG_SKILLS = "/home/rootkit/.gemini/config/skills"
-WORKSPACE_SKILLS = "/home/rootkit/.agents/skills"
+BASE_SKILLS_DIR = os.environ.get("AGENTE_SKILLS_DIR") or str(Path(__file__).resolve().parents[2])
+GLOBAL_CONFIG_SKILLS = str(Path.home() / ".gemini" / "config" / "skills")
+WORKSPACE_SKILLS = str(Path.home() / ".agents" / "skills")
 
 CLICHE_WORDS = [
     "código limpio", "buenas prácticas", "fácil de usar", "solución integral",
