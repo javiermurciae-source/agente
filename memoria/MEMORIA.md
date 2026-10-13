@@ -569,8 +569,9 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   5. *Servicio Persistente en localhost:8080*: Desplegado como servicio systemd de usuario en `~/.config/systemd/user/dramabox-web.service` (`systemctl --user start/stop/restart dramabox-web`). Acceso directo y abierto en el navegador en [http://localhost:8080](http://localhost:8080).
 
 ### [2026-10-13] - Máxima Rapidez y Eficiencia Quirúrgica
-- **Instrucción de Camilo**: «necesito que seas mas rapido eficiente».
-- **Criterio Reforzado**:
-  - Respuestas directas al grano, sin explicaciones largas ni rodeos teóricos.
-  - Ejecución en el menor número de comandos posibles.
-  - Prioridad absoluta a la velocidad de entrega y precisión técnica inmediata.
+- **Instrucción de Camilo**: «necesito que seas mas rapido eficiente» y «analiza para ver como hacerte mas concisa y que hagas mas las cosas pues con tus skills y todo».
+- **Criterio Reforzado e Inquebrantable**:
+  - **Action-First (Hacer antes de hablar)**: No explicar qué skill existe ni cómo se usaría; activarla directamente en segundo plano y generar el entregable listo.
+  - **Cero teoría no pedida**: Si Camilo no pide una lección, no soltar listas descriptivas ni explicaciones largas.
+  - **Respuestas telegráficas**: Máximo 2 a 4 líneas informando el archivo generado o el comando ejecutado.
+

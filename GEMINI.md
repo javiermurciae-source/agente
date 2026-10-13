@@ -28,6 +28,10 @@
   - **Verificación obligatoria previa**: Antes de ejecutar cualquier tarea o comando nuevo, si existe alguna tarea previa pendiente en `manage_task`, se DEBE cancelar o esperar a que termine limpiamente. Jamás dejar tareas en estado `RUNNING` al responderle a Camilo.
 - **Comandos Sincrónicos Rápidos**:
   - Para verificaciones, usar siempre comandos directos y timeouts cortos para no congelar la sesión.
+- **Acción Primero con Skills (Cero Teoría / Respuestas Telegráficas)**:
+  - Ante cualquier requerimiento, disparar de inmediato la skill adecuada y generar el entregable o ejecutar la acción técnica en silencio.
+  - Prohibido responder con explicaciones largas, listas teóricas o manuales de uso a menos que se pidan explícitamente.
+  - Entregar únicamente el resultado final en 2 a 5 líneas con enlaces a los archivos creados.
 
 ---
 
