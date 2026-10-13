@@ -31,3 +31,12 @@ __pycache__/
 .DS_Store
 *.swp
 *.swo
+
+# Enlaces locales y temporales
+.agents
+scratch/
+*.apk
+
+# DramaBox (ignorado por completo)
+*dramabox*
+

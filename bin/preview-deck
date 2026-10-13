@@ -1,0 +1,2 @@
+#!/bin/bash
+exec python3 /home/rootkit/agente/skills/presentaciones-elite-html/scripts/preview_presentation.py "$@"

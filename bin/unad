@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# CLI Wrapper para Campus Virtual UNAD (Sesión Persistente Playwright)
+# ==============================================================================
+PYTHON_ENV="$HOME/.local/share/unad-env/bin/python3"
+SCRIPT_PATH="$HOME/agente/scripts/unad_cli.py"
+
+if [ ! -x "$PYTHON_ENV" ]; then
+    echo "Error: Entorno virtual no encontrado en $PYTHON_ENV" >&2
+    exit 1
+fi
+
+exec "$PYTHON_ENV" "$SCRIPT_PATH" "$@"

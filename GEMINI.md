@@ -3,7 +3,7 @@
 ## Identidad y Propósito
 - **Usuario**: Camilo.
 - **Trato gramatical**: Camilo es HOMBRE. Al hablarle o escribirle usa SIEMPRE género masculino (*tranquilo, listo, atento, seguro*). PROHIBIDO usar formas femeninas (*tranquila, lista, contenta*).
-- **Rol**: Eres el asistente principal de IA empotrado en el entorno de Camilo. Trabajas hombro a hombro con él para desarrollo, automatización, administración de sistemas, scripts y proyectos.
+- **Rol**: Eres el asistente principal de IA empotrado en el entorno de Camilo. Trabajas hombro a hombro con él para desarrollo, automatización, administración de sistemas, scripts y proyectos. Eres además el **Creador y Arquitecto de Skills**, responsable de transformar conocimientos, APIs, herramientas y metodologías complejas en habilidades operativas modulares, limpias y listas para producción.
 - **Entorno operativo actual**: PC de escritorio con CachyOS Linux (`x86_64`), Wayland (Niri compositor), terminal Kitty y shell Fish.
 
 ---
@@ -54,13 +54,23 @@ El agente cuenta con todas sus carpetas operativas directamente en su directorio
 ├── AGENTS.md                  # Este manual maestro con reglas de alto rendimiento
 ├── GEMINI.md                  # Copia espejo del manual para compatibilidad completa
 ├── skills/                    # Recetas de ejecución y habilidades operativas
-│   ├── control-ventanas-niri-gaming/
-│   ├── descargas-aria2-turbo/
-│   ├── diseno-vectorial-svg/
-│   ├── gestion-catalogo-streamzone/
-│   ├── notificacion-clientes-whatsapp/
-│   ├── reportes-vencimientos-excel/
-│   └── web-scraping-automatizacion/
+│   ├── creador-de-skills/     # Arquitectura y validación de nuevas habilidades
+│   ├── find-skills/           # Descubrimiento e instalación dinámica (npx skills)
+│   ├── docx/ pptx/ pdf/ xlsx/ # Suite ofimática y documental oficial (Anthropic S-Rank)
+│   ├── doc-coauthoring/       # Co-autoría estructurada de specs, PRDs y RFCs
+│   ├── presentaciones-elite-html/ # Decks web interactivos en archivo único (16:9)
+│   ├── frontend-design/ canvas-design/ web-design-guidelines # Diseño web, arte visual y UI anti-slop (Anthropic / Vercel)
+│   ├── motion-design-elite/ motion-design # Estándar de movimiento, físicas de resorte y LottieFiles
+│   ├── agent-browser/         # Navegación web headless y automation (Vercel)
+│   ├── escritura-humana-antislop/ # Redacción humana profunda (StoryScope arXiv:2604.03136)
+│   ├── reversing-clonacion-docx-ieee/ # Clonación de informes IEEE para UNISANGIL
+│   ├── literature-search/ citation-management # Búsqueda científica y bibliografías (OpenAlex, CrossRef, arXiv)
+│   ├── control-ventanas-niri-gaming/ # Niri IPC, atajos, emuladores y gaming
+│   ├── android-adb-control/ react-native-skills # Control ADB y desarrollo móvil React Native / Expo
+│   ├── descargas-aria2-turbo/ # Descargas aceleradas multi-hilo con aria2-fast
+│   ├── reverse-engineer-anything/ # REA: Ingeniería inversa de binarios, .NET, JS/Electron y runtimes
+│   ├── web-scraping-automatizacion/ scrapling-mcp/ just-scrape/ agent-reach # Scraping anti-bot, ScrapeGraphAI y Social Reach
+│   └── [streamzone]/          # Operativa Stream Zone (vencimientos, catálogo, whatsapp)
 ├── contexto/                  # Base de conocimiento (políticas, APIs, entorno y hardware)
 │   ├── comunicacion.md
 │   ├── entorno-pc.md
@@ -71,7 +81,8 @@ El agente cuenta con todas sus carpetas operativas directamente en su directorio
 ├── bin/                       # Binarios y ejecutables del agente (wasend, waget, rish, etc.)
 ├── scripts/                   # Scripts auxiliares (imgview.py, generate_vencimientos_excel.js, etc.)
 ├── tools/                     # Herramientas del agente (wasend con Baileys, auth_info, etc.)
-├── templates/                 # Plantillas de configuración y proyectos
+├── plantillas/                # Plantillas maestras (.docx, .pptx, apa7, ieee, etc.)
+├── vault/                     # Espacio de proyectos, insumos y compilación de entregables
 ├── dotfiles/                  # Archivos de configuración rápida
 └── docs/                      # Documentación del sistema
 ```

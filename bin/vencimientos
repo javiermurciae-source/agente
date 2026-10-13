@@ -1,0 +1,103 @@
+#!/usr/bin/env bash
+set -e
+
+# ==============================================================================
+# STREAM ZONE — MASTER CLI DE VENCIMIENTOS
+# Extrae NuVlyx -> Genera Excel 13 cols -> Abre WPS -> Envía a Stream Zone Oficial,
+# Clientes (con anti-spam de 5s) y Grupo de Distribuidores.
+# ==============================================================================
+
+REAL_SOURCE="$(readlink -f "${BASH_SOURCE[0]}")"
+SCRIPT_DIR="$(cd "$(dirname "$REAL_SOURCE")" && pwd)"
+BASE_DIR="$(dirname "$SCRIPT_DIR")"
+PYTHON_SCRIPT="$BASE_DIR/scripts/sz_vencimientos.py"
+NOTIFY_SCRIPT="$BASE_DIR/tools/wasend/sz-notify-batch.mjs"
+META_FILE="/tmp/sz_last_report.json"
+
+show_help() {
+    echo "Uso: vencimientos [OPCIONES]"
+    echo ""
+    echo "Opciones:"
+    echo "  --dry-run          Simula el envío de WhatsApp sin emitir mensajes reales."
+    echo "  --only-excel       Genera el reporte Excel y abre WPS, omitiendo WhatsApp."
+    echo "  --no-wa            Alias de --only-excel."
+    echo "  --delay <seg>      Intervalo anti-spam entre mensajes (por defecto: 5 segundos)."
+    echo "  --limit <n>        Limita el despacho a los primeros N clientes."
+    echo "  --no-official      No envía el reporte a Stream Zone Oficial."
+    echo "  --no-group         No envía el aviso final al grupo de distribuidores."
+    echo "  -h, --help         Muestra esta ayuda."
+    echo ""
+    echo "Por defecto, 'vencimientos' ejecuta el flujo completo de principio a fin."
+    exit 0
+}
+
+# Evaluar argumentos
+ONLY_EXCEL=false
+DISPATCH_ARGS=()
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -h|--help)
+            show_help
+            ;;
+        --only-excel|--no-wa)
+            ONLY_EXCEL=true
+            shift
+            ;;
+        --dry-run|--no-official|--no-group)
+            DISPATCH_ARGS+=("$1")
+            shift
+            ;;
+        --delay|--limit)
+            DISPATCH_ARGS+=("$1" "$2")
+            shift 2
+            ;;
+        *)
+            DISPATCH_ARGS+=("$1")
+            shift
+            ;;
+    esac
+done
+
+echo ""
+echo "======================================================================"
+echo "🎬 STREAM ZONE — PIPELINE MAESTRO DE VENCIMIENTOS (0 A 4 DÍAS)"
+echo "======================================================================"
+
+# 1. Extracción y generación de Excel con credenciales
+python3 "$PYTHON_SCRIPT"
+
+# 2. Leer ruta del Excel generado
+EXCEL_PATH=""
+if [[ -f "$META_FILE" ]]; then
+    EXCEL_PATH=$(python3 -c "import json; print(json.load(open('$META_FILE')).get('excel_path', ''))" 2>/dev/null || true)
+fi
+
+# 3. Abrir en WPS Spreadsheets (no bloqueante)
+if [[ -n "$EXCEL_PATH" && -f "$EXCEL_PATH" ]]; then
+    echo "📊 Abriendo reporte en WPS Spreadsheets..."
+    niri msg action spawn -- /usr/bin/et "$EXCEL_PATH" 2>/dev/null || (/usr/bin/et "$EXCEL_PATH" >/dev/null 2>&1 &) || true
+fi
+
+# 4. Despacho por WhatsApp (Stream Zone Oficial, Clientes con 5s anti-spam y Grupo)
+if [[ "$ONLY_EXCEL" == true ]]; then
+    echo "ℹ️ Flag --only-excel detectado. Despacho de WhatsApp omitido."
+else
+    echo ""
+    echo "----------------------------------------------------------------------"
+    echo "📱 INICIANDO ORQUESTADOR DE WHATSAPP (BAILEYS)"
+    echo "----------------------------------------------------------------------"
+
+    RUNNER="node"
+    if command -v bun >/dev/null 2>&1; then
+        RUNNER="bun"
+    fi
+
+    $RUNNER "$NOTIFY_SCRIPT" --excel "$EXCEL_PATH" "${DISPATCH_ARGS[@]}"
+fi
+
+echo ""
+echo "======================================================================"
+echo "✅ FLUJO DE VENCIMIENTOS COMPLETADO CON ÉXITO"
+echo "======================================================================"
+echo ""

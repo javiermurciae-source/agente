@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>{{DECK_TITLE}}</title>
+  <!-- Tipografía moderna e independiente -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       VARIABLES Y SISTEMA DE TEMAS DE ALTO RENDIMIENTO
+       ========================================================================== */
+    :root {
+      /* Tema por Defecto: Dark Tech (SaaS / AI) */
+      --bg: #0A0D14;
+      --canvas-bg: #0E131F;
+      --card-bg: rgba(23, 31, 51, 0.65);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover: rgba(30, 41, 69, 0.85);
+      --text-main: #F8FAFC;
+      --text-muted: #94A3B8;
+      --accent: #38BDF8;
+      --accent-gradient: linear-gradient(135deg, #38BDF8 0%, #818CF8 50%, #C084FC 100%);
+      --accent-glow: rgba(56, 189, 248, 0.25);
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 22px;
+      --shadow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Tema: Apple Keynote Minimal */
+    body[data-theme="apple-keynote"] {
+      --bg: #E5E5EA;
+      --canvas-bg: #FFFFFF;
+      --card-bg: #F5F5F7;
+      --card-border: rgba(0, 0, 0, 0.06);
+      --card-hover: #EBEBED;
+      --text-main: #1D1D1F;
+      --text-muted: #86868B;
+      --accent: #0071E3;
+      --accent-gradient: linear-gradient(135deg, #0071E3 0%, #43B9FF 100%);
+      --accent-glow: rgba(0, 113, 227, 0.15);
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Tema: Notion Clean */
+    body[data-theme="notion-minimal"] {
+      --bg: #ECEBE8;
+      --canvas-bg: #FBFBFA;
+      --card-bg: #FFFFFF;
+      --card-border: #E3E2DE;
+      --card-hover: #F7F6F3;
+      --text-main: #37352F;
+      --text-muted: #787774;
+      --accent: #2EAADC;
+      --accent-gradient: linear-gradient(135deg, #37352F 0%, #787774 100%);
+      --accent-glow: transparent;
+      --shadow-card: 0 1px 3px rgba(15, 15, 15, 0.05);
+    }
+
+    /* Tema: Neo-Brutalist (Developer / Impact) */
+    body[data-theme="neo-brutalist"] {
+      --bg: #FEEF85;
+      --canvas-bg: #FFFFFF;
+      --card-bg: #FFFDF5;
+      --card-border: #18181B;
+      --card-hover: #FEF08A;
+      --text-main: #18181B;
+      --text-muted: #52525B;
+      --accent: #FF3366;
+      --accent-gradient: linear-gradient(135deg, #FF3366 0%, #FF9900 100%);
+      --accent-glow: transparent;
+      --radius-sm: 0px;
+      --radius-md: 4px;
+      --radius-lg: 6px;
+      --shadow-card: 4px 4px 0px #18181B;
+    }
+
+    /* ==========================================================================
+       RESET Y CONTENEDOR 16:9 DETERMINISTA
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      font-family: var(--font-body);
+      color: var(--text-main);
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.4s ease;
+    }
+
+    /* Lienzo 16:9 auto-escalable sin desbordamiento */
+    #presentation-stage {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      max-width: 100vw;
+      max-height: 100vh;
+      aspect-ratio: 16 / 9;
+      background-color: var(--canvas-bg);
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      transform-origin: center center;
+    }
+
+    /* ==========================================================================
+       BARRA DE PROGRESO Y HEADER DE NAVEGACIÓN
+       ========================================================================== */
+    #progress-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--accent-gradient);
+      width: 0%;
+      z-index: 50;
+      transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    header.deck-header {
+      position: absolute;
+      top: 36px;
+      left: 64px;
+      right: 64px;
+      height: 44px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 40;
+    }
+
+    .deck-badge {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .deck-badge span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       DIAPOSITIVAS (SLIDES)
+       ========================================================================== */
+    .slide-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      padding: 120px 64px 80px 64px;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(30px);
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s;
+      z-index: 10;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(0);
+      z-index: 20;
+    }
+
+    .slide.prev {
+      transform: translateX(-30px);
+    }
+
+    /* Tipografía y Textos */
+    .slide-tag {
+      font-family: var(--font-mono);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: 56px;
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      margin-bottom: 20px;
+    }
+
+    .slide-subtitle {
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 960px;
+      margin-bottom: 36px;
+    }
+
+    /* ==========================================================================
+       COMPONENTES REUTILIZABLES DE ALTO RENDIMIENTO
+       ========================================================================== */
+    /* 1. Bento Grid */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-gap: 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .bento-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .bento-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .col-8 { grid-column: span 8; }
+    .col-12 { grid-column: span 12; }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--accent-glow);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+      border: 1px solid var(--accent);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .card-desc {
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* 2. Big Data Callouts (Métricas Gigantes) */
+    .stats-row {
+      display: flex;
+      gap: 32px;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .stat-card {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .stat-label {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .stat-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* 3. Steps / Timeline Horizontal */
+    .steps-row {
+      display: flex;
+      gap: 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .step-item {
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--accent);
+      padding: 4px 10px;
+      background: var(--accent-glow);
+      border-radius: var(--radius-sm);
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+
+    /* 4. Slide de Portada / Hero */
+    .slide-hero {
+      justify-content: center;
+      align-items: flex-start;
+      padding-left: 100px;
+    }
+
+    .hero-badge {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      padding: 8px 18px;
+      border-radius: 999px;
+      margin-bottom: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 84px;
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      max-width: 1200px;
+    }
+
+    .hero-title span.highlight {
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 26px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 860px;
+      margin-bottom: 40px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 28px;
+      font-size: 16px;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       ÁREA SEGURA PARA CÁMARA (TALKING HEAD SAFETY ZONE)
+       ========================================================================== */
+    #safety-zone {
+      position: absolute;
+      bottom: 36px;
+      right: 36px;
+      width: 320px;
+      height: 220px;
+      border: 2px dashed rgba(239, 68, 68, 0.45);
+      background: rgba(239, 68, 68, 0.04);
+      border-radius: var(--radius-lg);
+      z-index: 60;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 8px;
+      color: #EF4444;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      pointer-events: none;
+    }
+
+    #safety-zone.visible {
+      display: flex;
+    }
+
+    #safety-zone svg {
+      width: 28px;
+      height: 28px;
+      stroke: #EF4444;
+    }
+
+    /* ==========================================================================
+       CONTROLES FLOTANTES (AUTO-HIDE)
+       ========================================================================== */
+    #controls {
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      padding: 8px 16px;
+      border-radius: 999px;
+      box-shadow: var(--shadow-card);
+      backdrop-filter: blur(16px);
+      z-index: 70;
+      opacity: 0.3;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    #presentation-stage:hover #controls,
+    #controls:hover {
+      opacity: 1;
+    }
+
+    .ctrl-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      font-family: var(--font-body);
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .ctrl-btn:hover {
+      background: var(--accent-glow);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body data-theme="dark-tech">
+
+  <div id="presentation-stage">
+    <!-- Barra superior de progreso -->
+    <div id="progress-bar"></div>
+
+    <!-- Cabecera -->
+    <header class="deck-header">
+      <div class="deck-badge">
+        <span class="dot"></span>
+        <span id="deck-topic">{{DECK_TOPIC}}</span>
+      </div>
+      <div class="slide-counter">
+        <span id="cur-slide">01</span> / <span id="total-slides">08</span>
+      </div>
+    </header>
+
+    <!-- Contenedor maestro de diapositivas -->
+    <div class="slide-container">
+
+      <!-- SLIDE 1: HOOK & PORTADA (Primeros 5 segundos) -->
+      <section class="slide slide-hero active" data-slide="1">
+        <div class="hero-badge">⚡ {{HERO_TAG}}</div>
+        <h1 class="hero-title">{{HERO_TITLE_PRE}} <span class="highlight">{{HERO_TITLE_HIGHLIGHT}}</span> {{HERO_TITLE_POST}}</h1>
+        <p class="hero-desc">{{HERO_SUBTITLE}}</p>
+        <div class="hero-meta">
+          <div>PRESENTER: {{PRESENTER_NAME}}</div>
+          <div>DATE: {{PRESENTATION_DATE}}</div>
+          <div>STATUS: CONFIDENCIAL / EN VIVO</div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: EL PROBLEMA / EL DOLOR -->
+      <section class="slide" data-slide="2">
+        <div class="slide-tag">01. EL DIAGNÓSTICO</div>
+        <h2 class="slide-title">{{PROBLEM_TITLE}}</h2>
+        <p class="slide-subtitle">{{PROBLEM_SUBTITLE}}</p>
+        
+        <div class="bento-grid">
+          <div class="bento-card col-6">
+            <div class="card-icon">⚠️</div>
+            <h3 class="card-title">{{PROBLEM_CARD_1_TITLE}}</h3>
+            <p class="card-desc">{{PROBLEM_CARD_1_DESC}}</p>
+          </div>
+          <div class="bento-card col-6">
+            <div class="card-icon">📉</div>
+            <h3 class="card-title">{{PROBLEM_CARD_2_TITLE}}</h3>
+            <p class="card-desc">{{PROBLEM_CARD_2_DESC}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: LA GRAN SOLUCIÓN / EL PARADIGMA -->
+      <section class="slide" data-slide="3">
+        <div class="slide-tag">02. LA SOLUCIÓN</div>
+        <h2 class="slide-title">{{SOLUTION_TITLE}}</h2>
+        <p class="slide-subtitle">{{SOLUTION_SUBTITLE}}</p>
+
+        <div class="bento-grid">
+          <div class="bento-card col-8">
+            <div class="card-icon">🚀</div>
+            <h3 class="card-title">{{SOLUTION_BIG_TITLE}}</h3>
+            <p class="card-desc">{{SOLUTION_BIG_DESC}}</p>
+          </div>
+          <div class="bento-card col-4">
+            <div class="card-icon">🎯</div>
+            <h3 class="card-title">{{SOLUTION_SIDE_TITLE}}</h3>
+            <p class="card-desc">{{SOLUTION_SIDE_DESC}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: BENTO GRID / CAPACIDADES CLAVE -->
+      <section class="slide" data-slide="4">
+        <div class="slide-tag">03. ARQUITECTURA</div>
+        <h2 class="slide-title">{{BENTO_TITLE}}</h2>
+        <p class="slide-subtitle">{{BENTO_SUBTITLE}}</p>
+
+        <div class="bento-grid">
+          <div class="bento-card col-4">
+            <div class="card-icon">⚡</div>
+            <h3 class="card-title">{{BENTO_1_TITLE}}</h3>
+            <p class="card-desc">{{BENTO_1_DESC}}</p>
+          </div>
+          <div class="bento-card col-4">
+            <div class="card-icon">🛡️</div>
+            <h3 class="card-title">{{BENTO_2_TITLE}}</h3>
+            <p class="card-desc">{{BENTO_2_DESC}}</p>
+          </div>
+          <div class="bento-card col-4">
+            <div class="card-icon">💎</div>
+            <h3 class="card-title">{{BENTO_3_TITLE}}</h3>
+            <p class="card-desc">{{BENTO_3_DESC}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: BIG DATA / MÉTRICAS DE IMPACTO -->
+      <section class="slide" data-slide="5">
+        <div class="slide-tag">04. RESULTADOS & MÉTRICAS</div>
+        <h2 class="slide-title">{{STATS_TITLE}}</h2>
+        <p class="slide-subtitle">{{STATS_SUBTITLE}}</p>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-number">{{STAT_1_NUMBER}}</div>
+            <div class="stat-label">{{STAT_1_LABEL}}</div>
+            <div class="stat-sub">{{STAT_1_SUB}}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{STAT_2_NUMBER}}</div>
+            <div class="stat-label">{{STAT_2_LABEL}}</div>
+            <div class="stat-sub">{{STAT_2_SUB}}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">{{STAT_3_NUMBER}}</div>
+            <div class="stat-label">{{STAT_3_LABEL}}</div>
+            <div class="stat-sub">{{STAT_3_SUB}}</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: FLUJO DE TRABAJO / ROADMAP PASO A PASO -->
+      <section class="slide" data-slide="6">
+        <div class="slide-tag">05. IMPLEMENTACIÓN</div>
+        <h2 class="slide-title">{{STEPS_TITLE}}</h2>
+        <p class="slide-subtitle">{{STEPS_SUBTITLE}}</p>
+
+        <div class="steps-row">
+          <div class="step-item">
+            <div class="step-num">PASO 01</div>
+            <h3 class="card-title">{{STEP_1_TITLE}}</h3>
+            <p class="card-desc">{{STEP_1_DESC}}</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">PASO 02</div>
+            <h3 class="card-title">{{STEP_2_TITLE}}</h3>
+            <p class="card-desc">{{STEP_2_DESC}}</p>
+          </div>
+          <div class="step-item">
+            <div class="step-num">PASO 03</div>
+            <h3 class="card-title">{{STEP_3_TITLE}}</h3>
+            <p class="card-desc">{{STEP_3_DESC}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: COMPARATIVA / ANTES VS DESPUÉS -->
+      <section class="slide" data-slide="7">
+        <div class="slide-tag">06. CONTRASTE</div>
+        <h2 class="slide-title">{{COMPARE_TITLE}}</h2>
+        <p class="slide-subtitle">{{COMPARE_SUBTITLE}}</p>
+
+        <div class="bento-grid">
+          <div class="bento-card col-6" style="border-left: 4px solid #EF4444;">
+            <div class="card-icon" style="background: rgba(239, 68, 68, 0.15); color: #EF4444; border-color: #EF4444;">❌</div>
+            <h3 class="card-title">El Método Tradicional</h3>
+            <p class="card-desc">{{COMPARE_BEFORE_DESC}}</p>
+          </div>
+          <div class="bento-card col-6" style="border-left: 4px solid #10B981;">
+            <div class="card-icon" style="background: rgba(16, 185, 129, 0.15); color: #10B981; border-color: #10B981;">✅</div>
+            <h3 class="card-title">Nuestro Enfoque de Élite</h3>
+            <p class="card-desc">{{COMPARE_AFTER_DESC}}</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: CONCLUSIÓN Y LLAMADO A LA ACCIÓN (CTA) -->
+      <section class="slide" data-slide="8" style="justify-content: center; align-items: center; text-align: center;">
+        <div class="hero-badge">🏁 {{CLOSING_TAG}}</div>
+        <h2 class="hero-title" style="font-size: 72px;">{{CLOSING_TITLE}}</h2>
+        <p class="hero-desc" style="max-width: 800px;">{{CLOSING_SUBTITLE}}</p>
+        <div class="bento-card" style="padding: 24px 48px; display: inline-flex; flex-direction: row; align-items: center; gap: 20px; border-color: var(--accent);">
+          <div style="font-size: 32px;">👉</div>
+          <div style="text-align: left;">
+            <div style="font-size: 20px; font-weight: 700; color: var(--text-main);">{{CTA_PRIMARY}}</div>
+            <div style="font-size: 14px; color: var(--text-muted); font-family: var(--font-mono);">{{CTA_LINK}}</div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Área Segura para Cámara / Talking Head -->
+    <div id="safety-zone">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+        <circle cx="12" cy="13" r="4"></circle>
+      </svg>
+      <div>Zona Segura Cámara</div>
+      <div style="font-size: 10px; opacity: 0.7;">(Tecla C para alternar)</div>
+    </div>
+
+    <!-- Controles Flotantes -->
+    <div id="controls">
+      <button class="ctrl-btn" id="btn-prev" title="Anterior (←)">‹</button>
+      <button class="ctrl-btn" id="btn-theme" title="Cambiar Tema (T)">🎨</button>
+      <button class="ctrl-btn" id="btn-camera" title="Zona Cámara (C)">📷</button>
+      <button class="ctrl-btn" id="btn-fullscreen" title="Pantalla Completa (F)">⛶</button>
+      <button class="ctrl-btn" id="btn-next" title="Siguiente (→)">›</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const slides = document.querySelectorAll('.slide');
+      const progressBar = document.getElementById('progress-bar');
+      const curSlideEl = document.getElementById('cur-slide');
+      const totalSlidesEl = document.getElementById('total-slides');
+      const safetyZone = document.getElementById('safety-zone');
+      const stage = document.getElementById('presentation-stage');
+
+      let currentIdx = 0;
+      const total = slides.length;
+      totalSlidesEl.textContent = String(total).padStart(2, '0');
+
+      const themes = ['dark-tech', 'apple-keynote', 'notion-minimal', 'neo-brutalist'];
+      let themeIdx = 0;
+
+      // 1. Auto-escalado responsive para mantener relación 16:9 perfecta
+      function handleResize() {
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+        const scaleX = windowWidth / 1920;
+        const scaleY = windowHeight / 1080;
+        const scale = Math.min(scaleX, scaleY);
+        stage.style.transform = `scale(${scale})`;
+      }
+      window.addEventListener('resize', handleResize);
+      handleResize();
+
+      // 2. Transición entre diapositivas
+      function goToSlide(newIdx) {
+        if (newIdx < 0 || newIdx >= total) return;
+        
+        slides[currentIdx].classList.remove('active');
+        if (newIdx > currentIdx) {
+          slides[currentIdx].classList.add('prev');
+        } else {
+          slides[currentIdx].classList.remove('prev');
+        }
+
+        currentIdx = newIdx;
+        slides[currentIdx].classList.remove('prev');
+        slides[currentIdx].classList.add('active');
+
+        // Actualizar barra y contador
+        const pct = ((currentIdx + 1) / total) * 100;
+        progressBar.style.width = `${pct}%`;
+        curSlideEl.textContent = String(currentIdx + 1).padStart(2, '0');
+      }
+
+      function nextSlide() { goToSlide(currentIdx + 1); }
+      function prevSlide() { goToSlide(currentIdx - 1); }
+
+      function toggleTheme() {
+        themeIdx = (themeIdx + 1) % themes.length;
+        document.body.setAttribute('data-theme', themes[themeIdx]);
+      }
+
+      function toggleSafetyZone() {
+        safetyZone.classList.toggle('visible');
+      }
+
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+          document.exitFullscreen().catch(() => {});
+        }
+      }
+
+      // 3. Event Listeners de Teclado
+      document.addEventListener('keydown', (e) => {
+        switch (e.key) {
+          case 'ArrowRight':
+          case 'ArrowDown':
+          case ' ':
+          case 'PageDown':
+            e.preventDefault();
+            nextSlide();
+            break;
+          case 'ArrowLeft':
+          case 'ArrowUp':
+          case 'Backspace':
+          case 'PageUp':
+            e.preventDefault();
+            prevSlide();
+            break;
+          case 'Home':
+            e.preventDefault();
+            goToSlide(0);
+            break;
+          case 'End':
+            e.preventDefault();
+            goToSlide(total - 1);
+            break;
+          case 'f':
+          case 'F':
+            toggleFullscreen();
+            break;
+          case 'c':
+          case 'C':
+            toggleSafetyZone();
+            break;
+          case 't':
+          case 'T':
+            toggleTheme();
+            break;
+        }
+
+        // Saltos con dígitos 1-9
+        if (e.key >= '1' && e.key <= '9') {
+          const target = parseInt(e.key) - 1;
+          if (target < total) goToSlide(target);
+        }
+      });
+
+      // 4. Botones flotantes
+      document.getElementById('btn-next').addEventListener('click', nextSlide);
+      document.getElementById('btn-prev').addEventListener('click', prevSlide);
+      document.getElementById('btn-theme').addEventListener('click', toggleTheme);
+      document.getElementById('btn-camera').addEventListener('click', toggleSafetyZone);
+      document.getElementById('btn-fullscreen').addEventListener('click', toggleFullscreen);
+
+      // 5. Soporte Gestos Táctiles (Swipe)
+      let touchStartX = 0;
+      stage.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) nextSlide();
+          else prevSlide();
+        }
+      }, { passive: true });
+
+      // Iniciar en slide 0
+      goToSlide(0);
+    })();
+  </script>
+</body>
+</html>

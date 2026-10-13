@@ -1,3 +1,8 @@
+---
+name: diseno-vectorial-svg
+description: Procedimiento y renderizado para crear gráficos corporativos, anuncios y banners en SVG y rasterizarlos a PNG en alta definición. Utilizar cuando se solicite crear piezas visuales, anuncios de Stream Zone, banners o infografías vectoriales.
+---
+
 # Skill: Diseño Vectorial SVG y Renderizado a Imagen
 
 Procedimiento paso a paso para crear gráficos corporativos, anuncios y banners en SVG y rasterizarlos a PNG en alta definición.

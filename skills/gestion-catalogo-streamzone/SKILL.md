@@ -1,3 +1,8 @@
+---
+name: gestion-catalogo-streamzone
+description: Procedimiento y control técnico para administrar inventario, catálogo y licencias de Stream Zone mediante la API REST de NuVlyx. Utilizar cuando se solicite dar de alta productos, actualizar precios, consultar stock o cargar inventario masivo.
+---
+
 # Skill: Gestión de Catálogo y Licencias Stream Zone
 
 Procedimiento para dar de alta productos, actualizar precios y cargar inventario masivo en NuVlyx.

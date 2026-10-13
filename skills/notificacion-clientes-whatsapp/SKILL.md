@@ -1,3 +1,8 @@
+---
+name: notificacion-clientes-whatsapp
+description: Procedimiento para estructurar, validar y enviar avisos de renovación o reportes de Stream Zone por WhatsApp con wasend. Utilizar cuando se solicite notificar a clientes individuales, distribuidores o canales VIP sobre cortes o credenciales.
+---
+
 # Skill: Notificación de Clientes y Canales VIP por WhatsApp
 
 Procedimiento paso a paso para estructurar, validar y enviar avisos de renovación o reportes de Stream Zone.

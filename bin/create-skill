@@ -1,0 +1,2 @@
+#!/bin/bash
+exec python3 /home/rootkit/agente/skills/creador-de-skills/scripts/scaffold_skill.py "$@"

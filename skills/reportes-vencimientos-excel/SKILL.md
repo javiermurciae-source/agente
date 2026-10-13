@@ -1,3 +1,8 @@
+---
+name: reportes-vencimientos-excel
+description: Procedimiento de negocio para compilar y formatear la planilla corporativa azul de vencimientos y cortes de Stream Zone en Excel. Utilizar cuando se solicite generar reportes de corte de Stream Zone, ejecutar el comando vencimientos o procesar suscripciones de NuVlyx.
+---
+
 # Skill: Generación de Reportes de Vencimientos en Excel
 
 Procedimiento paso a paso para compilar y formatear la planilla oficial de vencimientos y cortes de Stream Zone.
