@@ -49,7 +49,18 @@ else
     echo "   ✅ RTK ya instalado y disponible en PATH."
 fi
 
-# 5. Instalación de dependencias de WhatsApp (tools/wasend)
+# 5. Instalación de Graphify (Knowledge Graph AST para código y docs)
+if ! command -v graphify >/dev/null 2>&1; then
+    echo "⚡ Instalando Graphify (Knowledge Graph AST)..."
+    python3 -m venv "$HOME/.local/share/graphify-env" 2>/dev/null || true
+    "$HOME/.local/share/graphify-env/bin/pip" install graphifyy 2>/dev/null || true
+    ln -sf "$HOME/.local/share/graphify-env/bin/graphify" "$LOCAL_BIN/graphify"
+else
+    echo "   ✅ Graphify ya instalado y disponible en PATH."
+fi
+
+# 6. Instalación de dependencias de WhatsApp (tools/wasend)
+
 
 if [ -d "$AGENTE_DIR/tools/wasend" ]; then
     echo "📦 Verificando dependencias de tools/wasend..."

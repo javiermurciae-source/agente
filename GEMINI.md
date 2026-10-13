@@ -74,7 +74,7 @@ agente/ (o $HOME/)
 │   ├── descargas-aria2-turbo/ # Descargas aceleradas multi-hilo con aria2-fast
 │   ├── reverse-engineer-anything/ # REA: Ingeniería inversa de binarios, .NET, JS/Electron y runtimes
 │   ├── web-scraping-automatizacion/ scrapling-mcp/ just-scrape/ agent-reach # Scraping anti-bot, ScrapeGraphAI y Social Reach
-│   ├── caveman/ grill-me/ rtk-token-killer # Optimización extrema de tokens, voz telegráfica y entrevistas quirúrgicas
+│   ├── caveman/ grill-me/ rtk-token-killer / graphify # Optimización extrema de tokens, voz telegráfica y grafos AST
 │   └── [streamzone]/          # Operativa Stream Zone (vencimientos, catálogo, whatsapp)
 ├── contexto/                  # Base de conocimiento (políticas, APIs, entorno y hardware)
 │   ├── comunicacion.md

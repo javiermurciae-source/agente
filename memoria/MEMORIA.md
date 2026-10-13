@@ -581,3 +581,16 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
   3. **Grill-Me (`skills/grill-me/`)**:
      - Metodología de interrogación quirúrgica y árbol de decisiones de Matt Pocock.
      - Evita el desperdicio de tokens por retrabajo o suposiciones erróneas formulando todo el frente de decisiones pendientes en una sola ronda con opciones y recomendación previa.
+
+### [2026-10-13] - Incorporación de Graphify (Knowledge Graph AST Multimodal)
+- **Instrucción de Camilo**: «https://github.com/Graphify-Labs/graphify opina» y «hazlo y ayudame».
+- **Implementación y Despliegue**:
+  1. **Motor Python e Instalación**:
+     - Instalado `graphifyy` (v0.9.89) con parsers de Tree-sitter y NetworkX en entorno aislado `~/.local/share/graphify-env/`.
+     - Binario enlazado a `~/.local/bin/graphify`.
+  2. **Integración con Google Antigravity**:
+     - Ejecutado `graphify antigravity install`: genera reglas en `~/.agents/rules/graphify.md`, flujos en `~/.agents/workflows/graphify.md` y skill nativa en `skills/graphify/`.
+  3. **Ahorro de Contexto (71x menos tokens)**:
+     - Indexación local determinista vía AST sin costo de API (`graphify .` o `graphify extract . --code-only`).
+     - Generación de Wiki local en Markdown (`graphify-out/wiki/index.md`) y exportación interactiva a `graph.html` y Obsidian.
+
