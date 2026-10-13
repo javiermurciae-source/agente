@@ -68,7 +68,7 @@ agente/ (o $HOME/)
 │   ├── doc-coauthoring/       # Co-autoría estructurada de specs, PRDs y RFCs
 │   ├── presentaciones-elite-html/ # Decks web interactivos en archivo único (16:9)
 │   ├── frontend-design/ canvas-design/ web-design-guidelines # Diseño web, arte visual y UI anti-slop (Anthropic / Vercel)
-│   ├── motion-design-elite/ motion-design # Estándar de movimiento, físicas de resorte y LottieFiles
+│   ├── motion-design-elite/ motion-design / remotion (suite oficial) # Video con código React, físicas de resorte y Lottie
 │   ├── agent-browser/         # Navegación web headless y automation (Vercel)
 │   ├── escritura-humana-antislop/ # Redacción humana profunda (StoryScope arXiv:2604.03136)
 │   ├── reversing-clonacion-docx-ieee/ # Clonación de informes IEEE para UNISANGIL

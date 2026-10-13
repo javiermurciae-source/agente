@@ -620,5 +620,20 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
      - Niri / Gaming: `control-ventanas-niri-gaming` (Niri IPC).
      - WhatsApp: `wasend` / `waget`.
 
+### [2026-10-13] - Incorporación de la Suite Oficial de Remotion (Video con Código)
+- **Instrucción de Camilo**: «busca las oficiales las skills de eso» y «agregalas».
+- **Implementación y Despliegue**:
+  - Instaladas las 12 skills oficiales de `remotion-dev/skills` vía `npx skills add remotion-dev/skills`:
+    - `remotion-best-practices` (Router y reglas maestras).
+    - `remotion-create` (scaffolding y creación).
+    - `remotion-captions` (subtítulos y transcripciones animadas).
+    - `remotion-markup` (timelines, frames, hooks `interpolate`/`spring`).
+    - `remotion-multimedia` (audio, video, Mediabunny).
+    - `remotion-render` (renderizado local y en la nube).
+    - `remotion-studio` (preview interactivo en el navegador).
+    - `remotion-maps` (mapas con Mapbox/Cesium).
+    - `remotion-interactivity`, `remotion-docs`, `remotion-saas`, `remotion-upgrade`.
+
+
 
 
