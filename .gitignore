@@ -40,3 +40,6 @@ scratch/
 # DramaBox (ignorado por completo)
 *dramabox*
 
+
+# Vault local (no se sube al repo)
+vault/

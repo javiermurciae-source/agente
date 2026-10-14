@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# Wrapper dinámico y portable para imgview
-REAL_SOURCE="$(readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
-AGENTE_DIR="$(cd "$(dirname "$REAL_SOURCE")/.." && pwd)"
-exec python3 "$AGENTE_DIR/scripts/imgview.py" "$@"

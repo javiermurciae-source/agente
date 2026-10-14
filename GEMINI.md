@@ -66,9 +66,11 @@ agente/ (o $HOME/)
 │   ├── find-skills/           # Descubrimiento e instalación dinámica (npx skills)
 │   ├── docx/ pptx/ pdf/ xlsx/ # Suite ofimática y documental oficial (Anthropic S-Rank)
 │   ├── doc-coauthoring/       # Co-autoría estructurada de specs, PRDs y RFCs
+│   ├── presentaciones/        # Presentaciones HTML autocontenidas de alto impacto (ProductByTom)
 │   ├── presentaciones-elite-html/ # Decks web interactivos en archivo único (16:9)
 │   ├── frontend-design/ canvas-design/ web-design-guidelines # Diseño web, arte visual y UI anti-slop (Anthropic / Vercel)
 │   ├── motion-design-elite/ motion-design / remotion (suite oficial) # Video con código React, físicas de resorte y Lottie
+│   ├── pizarra-animada/       # Videos de pizarra blanca (handanim / sketchling, trazo a mano y locución)
 │   ├── agent-browser/         # Navegación web headless y automation (Vercel)
 │   ├── escritura-humana-antislop/ # Redacción humana profunda (StoryScope arXiv:2604.03136)
 │   ├── reversing-clonacion-docx-ieee/ # Clonación de informes IEEE para UNISANGIL

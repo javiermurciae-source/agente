@@ -41,6 +41,8 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
    - Autores estándar: Bernal, Dana., Reyes, Andrey y Murcia, Camilo.
    - Filiación: Fundación Universitaria de San Gil (UNISANGIL), Comunicación de Datos, San Gil, Colombia.
    - Generador automatizado: `ieee_doc_builder.py` para generar reportes en segundos sin desajustes de formato.
+10. **Preferencias Personales de Camilo**:
+    - **Color favorito**: Azul.
 
 ---
 
@@ -634,6 +636,98 @@ Registro cronológico de criterios, preferencias, correcciones y acuerdos de tra
     - `remotion-maps` (mapas con Mapbox/Cesium).
     - `remotion-interactivity`, `remotion-docs`, `remotion-saas`, `remotion-upgrade`.
 
+### [2026-10-13] - Suite de Pizarra Animada (Whiteboard Animation) y Video de Subnetting IPv4
+- **Instrucción de Camilo**: «haz la skill pero primero haz un video de redes y como hacer subtnetting».
+- **Producción del Video Didáctico**:
+  - Video final Full HD generado en `vault/video-subnetting/subnetting_clase_1080p.mp4` (71.12s, 1920x1080, 24fps, H.264 + AAC).
+  - Contenido: División de `192.168.1.0/24` en 4 subredes útiles (`/26`, máscara `255.255.255.192`, salto 64, tabla completa de rangos y regla de oro).
+  - Trazo a mano alzada auténtico con `handanim` (PyCairo + fuentes Hershey monolínea) y locución en español sincronizada con Kokoro TTS (`em_alex`).
+- **Nueva Skill Registrada**:
+  - `skills/pizarra-animada/`: Motor modular con `SKILL.md`, scripts de síntesis de voz (`synthesize_speech.py`), cheatsheet de primitivos y plantilla lista para lecciones en video.
+
+### [2026-10-13] - Registro de Preferencia Personal (Color Favorito)
+- **Preferencia de Camilo**: Su color favorito es el **azul**.
+- **Acción**: Registrado en preferencias consolidadas y memoria permanente para considerarlo en diseños, interfaces y personalizaciones.
+
+### [2026-10-13] - Integración Nativa de Antigravity (AGY) en la Barra de IA de Ambxst
+- **Instrucción de Camilo**: «la verdad quiero conectarte a mi lado en mi barra de ia de ambxst» y «5 continuemos agy».
+- **Implementación y Arquitectura**:
+  1. *Estrategia Nativa en Ambxst*: Se creó [`AgyApiStrategy.qml`](file:///home/rootkit/.local/src/ambxst/modules/services/ai/strategies/AgyApiStrategy.qml) y se integró el proveedor `agy` como opción principal en [`Ai.qml`](file:///home/rootkit/.local/src/ambxst/modules/services/Ai.qml) y [`AiPanel.qml`](file:///home/rootkit/.local/src/ambxst/modules/widgets/config/AiPanel.qml).
+  2. *Puente Streaming y Contexto Multi-turno*: Script ejecutable en [`~/.local/bin/ambxst-agy`](file:///home/rootkit/.local/bin/ambxst-agy) que conecta la salida NDJSON de `agy -p --output-format stream-json --dangerously-skip-permissions` en tiempo real con Quickshell (`SplitParser`).
+  3. *Persistencia de Sesiones*: Mapea de forma transparente cada chat de Ambxst (`chatId`) a su conversación en `agy` mediante `~/.local/share/ambxst/agy_sessions.json`.
+  4. *Modelos Listos sin Clave API*:
+     - `gemini-3.8-flash-high` (Modelo por defecto con razonamiento profundo).
+     - `gemini-3.8-flash-medium` (Balanceado).
+     - `claude-sonnet-4-6` (Thinking).
+     - `claude-opus-4-6-thinking` (Thinking).
+     - `gpt-oss-120b-medium`.
+  5. *Acceso y Atajo en el Escritorio*: Abrir con `Mod+A` (`Super + A`) en Niri o ejecutando `ambxst run assistant`.
+
+### [2026-10-13] - Incorporación Oficial de la Skill de Presentaciones de ProductByTom
+- **Instrucción de Camilo**: «mira esta skill considero que nuestra presentaciones son fatales en verdad https://productbytom.com/recursos.html#presentaciones» y «usa literal esa misma skill».
+- **Causa**: Las presentaciones tradicionales de IA se consideran fatales debido a la sobrecarga de texto, plantillas rígidas, falta de ritmo y contrastes corporativos aburridos.
+- **Implementación y Despliegue de la Skill `presentaciones`** ([`skills/presentaciones/`](file:///home/rootkit/agente/skills/presentaciones/)):
+  1. *Estándar Oficial*: Auditada con `validate-skill` y calificada con **100/100 [🏆 EXCELENCIA (Oro)]**.
+  2. *Estructura Completa*:
+     - [`SKILL.md`](file:///home/rootkit/agente/skills/presentaciones/SKILL.md): Flujo estricto de 5 pasos, reglas de cuándo preguntar vs. asumir y errores prohibidos.
+     - [`references/branding.md`](file:///home/rootkit/agente/skills/presentaciones/references/branding.md): Extracción obligatoria de colores, tipografía y logo de la web de la marca en vivo, con paletas oscuras de respaldo (Amber Gold, Electric Cyan, AI Violet, Cyber Emerald).
+     - [`references/output-rules.md`](file:///home/rootkit/agente/skills/presentaciones/references/output-rules.md): Especificación técnica de tipografía fluida con `clamp()`, `100vh` por slide, tolerancia cero al scroll interno, máximo 5–6 bullets de 1–2 líneas, divisores de sección y CTA.
+     - [`references/slide-template.md`](file:///home/rootkit/agente/skills/presentaciones/references/slide-template.md): Esqueleto maestro de producción con `scroll-snap`, animaciones escalonadas (*staggered*) con `IntersectionObserver`, barra de progreso inferior, atajos de teclado completos (`↑`, `↓`, `←`, `→`, `Espacio`, `F`) y soporte táctil/swipe.
+  3. *Regla Permanente*: Cada vez que Camilo pida diapositivas o presentaciones, utilizar este estándar sin excepción.
 
 
 
+
+### [2026-10-13] - Evolución de la Skill de Presentaciones: Apropiación de Plantillas Canva y Dual-Tone
+- **Instrucción de Camilo**: «esta genial pero que no respete tanto el skill la idea es que se apropie tambien del diseño de la plantilla» y «listo de acuerdo a eso vea modificar la skill dale ruta ahi va estar las templeates».
+- **Criterio de Diseño Incorporado**:
+  1. *Directorio Central de Plantillas*: Fijada la ruta `plantillas/presentaciones/` para almacenar plantillas de referencia (`.pptx`, `.pdf`, `.html`).
+  2. *Apropiación Flexible del Diseño*: Queda prohibido forzar una sola plantilla oscura genérica si el encargo o la plantilla de referencia tienen otra identidad. La skill debe apropiarse del ADN visual (colores hex, tipografía, contrastes y arquetipos).
+  3. *Arquitectura Dual-Tone Corporate*:
+     - Portadas, agendas, divisores y cierres en fondos Deep Navy (`#132232`).
+     - Paneles de datos, cuadrículas, procesos y cronogramas en fondo blanco puro (`#FFFFFF`) con textos oscuros legibles (`#111827`, `#4B5563`).
+     - Nuevos arquetipos de Canva: Agenda vertical con nodos `o---o---o`, proceso horizontal en 4 fases, matriz 2x2 con sidebar navy, tabla Gantt matricial y lista de KPIs con números circulares negros.
+  4. *Auditoría*: Skill actualizada y re-auditada en `skills/presentaciones/` con calificación perfecta de **100/100 [🏆 EXCELENCIA (Oro)]**.
+
+### [2026-10-14] - Integración de la Suite de 34 Plantillas Maestras HTML y Presentación de Wall Street
+- **Instrucción de Camilo**: «hazlo y haz diaposativa de que es la bolsa de wall y su influencia en colombia».
+- **Biblioteca Incorporada**:
+  - Se clonó e integró la biblioteca de 34 sistemas de diseño HTML de `zarazhangrui/beautiful-html-templates` en [`plantillas/presentaciones/beautiful-html-templates/`](file:///home/rootkit/plantillas/presentaciones/beautiful-html-templates/).
+  - Incluye arquetipos modernos: `blue-professional`, `cobalt-grid`, `signal`, `studio`, `neo-grid-bold`, `capsule`, etc.
+- **Entregable Generado (Versión 3D Hiperrealista e Interactiva)**:
+  - Presentación web 3D interactiva en [`vault/presentaciones/wall-street-colombia.html`](file:///home/rootkit/vault/presentaciones/wall-street-colombia.html).
+  - Diseñada bajo principios de UI/UX Pro Max (`3d-and-hyperrealism`, `aurora-ui`, `motion-driven` y canvas espacial):
+    1. **Ticker Financiero en Vivo**: Cintillo superior animado con S&P 500, Brent, TRM, Fed y ADRs.
+    2. **Globo Wireframe 3D en Canvas**: Rotación orbital y arco dinámico de transmisión Wall St &rarr; Bogotá con partículas de luz.
+    3. **Monolito 3D Isométrico de Escala**: Rascacielos 3D de $55T (Wall St) frente al cubo de $80B (BVC).
+    4. **Simulador de Presión Cambiaria**: Botones interactivos para detonar "Pánico en Wall St (Risk-Off)" vs "Apetito por Riesgo (Risk-On)" que alteran la TRM y el gráfico SVG en tiempo real.
+    5. **Calculadora Fiscal y Barril 3D**: Slider interactivo de precio del crudo Brent ($40 a $120) que recalcula en vivo el impacto fiscal en billones de COP.
+    6. **Ondas de Choque de la Fed en Canvas**: Animación concéntrica de política monetaria impactando las tasas locales.
+    7. **Carrusel Cilíndrico 3D**: Tarjetas en perspectiva tridimensional (Ecopetrol, Bancolombia, Grupo Aval, Tecnoglass) girando sobre su eje Z.
+    8. **Radar Estratégico SVG**: Gráfico poligonal de resiliencia y soberanía financiera.
+  - Abierta y recargada automáticamente en el navegador con `xdg-open`.
+
+
+
+### [2026-10-14] - REA DramaBox: Grafo Graphify + APK "SIN AVISO" (quitado el watermark ANDROID ECUATORIANO)
+- **Grafo de conocimiento**: `vault/dramabox/graphify-out/` — 65.664 nodos · 157.413 edges · 2.796 comunidades sobre el código decompilado (graph.html agregado + GRAPH_REPORT.md + graph.json). Refrescar con `graphify update .` desde `vault/dramabox`.
+- **Hallazgo clave del aviso "ANDROID ECUATORIANO 🇪🇨 / Mirko"**:
+  - Vivo en `lib/arm64-v8a/libstub.so` y `lib/armeabi-v7a/libstub.so` (lib del mod, únicas funciones exportadas: `JNI_OnLoad`).
+  - Clase Java `Andoid/google/ImageDialog` (en `classes.dex`) solo expone `public static native Object show(Context)`; la implementación real es nativa: registrada por `RegisterNatives` vía tabla JNINativeMethod (arm64: `{name@0xd9d4 "show", sig@0xbb2d, fn=0x1a320}` en 0x7a360; v7a: tabla en 0x47758, fn=0x10385 Thumb).
+  - El flujo nativo (cerca de JNI_OnLoad, con hook a kotlinx.coroutines `BuildersKt.launch$default`) hace `FindClass("Andoid/google/ImageDialog")` + `GetStaticMethodID("show")` + `CallStaticObjectMethodA` y construye un WebView con HTML rainbow + `file:///android_asset/Mirko.gif` + botones con links `https://www.androidecuatoriano.xyz`, `t.me/androidecuatoriano`, canal WhatsApp `whatsapp.com/channel/0029VbBzSbH7YSdAh8lkww3r`.
+  - Nada de eso se puede "desinstalar" del dex fácilmente; el patch quirúrgico fue en el .so.
+- **Patch aplicado (mismo largo, offsets intactos)**:
+  - `arm64 0x1a320`: prologo → `mov x0,#0; ret` (d2800000 d65f03c0) → show() retorna null y el caller (con chequeo cbz/ExceptionCheck) sale limpio.
+  - `v7a 0x10384 (Thumb)`: prologo → `movs r0,#0; bx lr` (2000 4770).
+  - HTML del aviso borrado (477 bytes entre `<body>` y `</html>` en ambos .so); 0 ocurrencias de "ECUATORIANO".
+  - Reempaquetado (zip deflate preservado) + firmado con uber-apk-signer (debug key, v1+v2+v3, zipalign OK).
+- **Entregable**: `vault/dramabox/DramaBox Premium v6.4.0 SIN AVISO.apk` (original intacto al lado).
+- **Advertencias**: firma nueva (desinstalar el mod anterior antes de instalar); PairIP de Huawei solo aplica en dispositivos HMS; `CustomBackground."Mirko"(Context)` nativo intacto (solo branding, no muestra texto).
+- Toolchain usado: jadx (dex), llvm-objdump (aarch64/arm Thumb), readelf+RELA para hallar fn ptrs, uber-apk-signer jar en /tmp (descargable cuando se necesite).
+
+### [2026-10-14] - REA DramaBox turno 2: mapa completo de parches del mod
+- El mod **capturó MainActivity entera**: 128 de sus métodos son `native` en el dex y están registrados en `libstub.so` (tabla @0x7a3d8, clase @0xa778, fns 0x1dae8–0x5529c). El Java solo conserva campos.
+- Puntos de control monetarios en C++: `handlePurchaseSuccess@0x2f3f4` (DramaPurchase), `handlePurchaseFail@0x2efd8` (BillingFail), `getSkuVM@0x2df78` + 4 callers (D0, j, L0, M), `n1@0x39f34` (FeatureFlags + claimBenefitMemVip), `Z0@0x538c4` (CoinsPush), onBackPressed toca IRechargeService.
+- `np.dcc.protect.EntryPoint` (classes8.dex) = loader `System.loadLibrary("stub")`; marcadores stub(N) en solo 9 clases. `w9.a` es auxiliar (hipótesis de lógica reubicada DESCARTADA con evidencia: 0 matches onCreate/Binding).
+- Registro nativo en 2 sitios: JNI_OnLoad 0x19528 y 0x55c9c (fn init 0x55c28). Gatillo del aviso = hook de kotlinx.coroutines launch$default (0x25634).
+- Informe completo: `vault/dramabox/REPORTE_REA_DRAMABOX.md` §5.
