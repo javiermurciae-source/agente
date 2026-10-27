@@ -1457,3 +1457,9 @@ Diagnóstico endpoint a endpoint de `core/rut_browser.py` y `core/dian_services.
   - **DramaBox VIP**: APK `DramaBox_VIP_FINAL.apk` (`com.storymatrix.drama`). Autenticación contra `/opt/master-license-hub` (puerto `5051`, SQLite `master_keys.db`, app_slug `dramabox`).
   - **NouTube (Youtubeviwer)**: APK `NouTube_VIP.apk` (`com.youtubeviwer.app`). Autenticación contra `/opt/noutube-auth` (puerto `5050`, SQLite `auth.db`, tabla `licenses`).
   - Flujo validado en vivo: descarga de APKs, creación de licencias en las DBs de los microservicios e inyección automática en emulador vía MCP.
+
+
+### [2026-10-27] - Respaldo Configuración Navegador Helium y Ventoy USB
+- **USB Ventoy**: Kingston DataTraveler 14.4 GB formateada en GPT/UEFI (`/dev/sda1` en exFAT con etiqueta `Ventoy`).
+- **Respaldo de Helium**: Configuración completa de Helium Browser (`~/.config/net.imput.helium`) empaquetada y respaldada en la USB en `/backups/helium_config_backup.tar.gz` (80 MB).
+- **Contenido respaldado**: Marcadores, contraseñas, sesiones, perfiles, cookies y extensiones (excluyendo bases de datos temporales de IndexedDB/GPUCache para optimizar tamaño).
