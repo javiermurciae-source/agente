@@ -1,11 +1,27 @@
 ---
 name: android-adb-control
-description: Procedimiento y control técnico para administración, depuración e interacción con dispositivos Android y aplicaciones móviles mediante comandos nativos directos de ADB. Utilizar cuando se solicite conectar por USB o Wi-Fi, instalar o extraer APKs, capturar pantalla, automatizar toques y teclados, inspeccionar jerarquía de UI o depurar logs con logcat.
+description: Control técnico y automatización para administración, depuración e interacción con dispositivos Android físicos y emuladores. Prioriza el protocolo estándar Mobile Next (MCP mobile) con fallback a comandos nativos de ADB.
 ---
 
-# Android ADB: Control y Automatización Nativa (Zero-Python)
+# Android Control & Automatización (Mobile-MCP Principal + ADB Nativo)
 
-Procedimiento de ejecución quirúrgica utilizando exclusivamente el binario nativo de Arch/CachyOS (`/usr/bin/adb`). Sin capas intermedias, wrappers ni librerías de Python: comandos directos de shell.
+Estándar maestro para interacción, automatización de apps, extracción de datos y control de dispositivos Android en el entorno de Camilo.
+
+---
+
+## 🥇 Protocolo Principal: Mobile MCP Server (`@mobilenext/mobile-mcp`)
+Para toda interacción inteligente con aplicaciones, interfaces y flujos de usuario, la herramienta predeterminada y prioritaria es el servidor MCP **`mobile`** (`mcp-server-mobile`), ya que opera por **árbol de accesibilidad semántico** (ahorro masivo de tokens sin quemar visión) y unifica la API:
+
+- **Detección de dispositivos**: `mobile_list_available_devices`
+- **Lanzamiento y cierre**: `mobile_launch_app`, `mobile_terminate_app`
+- **Gestión de paquetes**: `mobile_install_app`, `mobile_uninstall_app`, `mobile_list_apps`
+- **Interacción y Gestos**: `mobile_tap`, `mobile_swipe`, `mobile_input_text`
+- **Entorno y Sistema**: `mobile_clipboard`, `mobile_set_orientation`, `mobile_set_location`
+
+---
+
+## ⚡ Fallback y Utilidades de Bajo Nivel: Comandos Nativos ADB (`/usr/bin/adb`)
+Se reservan exclusivamente para diagnósticos directos del sistema operativo, conexiones inalámbricas (`adb connect`), logs de bajo nivel (`logcat`) o tareas donde no se requiera el servidor MCP.
 
 ---
 

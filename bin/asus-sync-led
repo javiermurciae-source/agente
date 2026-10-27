@@ -1,0 +1,207 @@
+#!/usr/bin/env python3
+"""
+asus-sync-led: Sincroniza el color LED RGB del teclado ASUS TUF/ROG con el fondo de pantalla o colores del sistema.
+Utiliza asusctl / asusd para aplicar el color estático.
+"""
+
+import sys
+import os
+import json
+import subprocess
+import time
+import re
+import argparse
+from pathlib import Path
+
+CACHE_COLORS = Path.home() / ".cache" / "ambxst" / "colors.json"
+CACHE_WALLPAPERS = Path.home() / ".cache" / "ambxst" / "wallpapers.json"
+CACHE_THUMBS = Path.home() / ".cache" / "ambxst" / "thumbnails"
+
+def clean_hex(color_str: str) -> str:
+    """Limpia el string hexadecimal eliminando almohadilla (#) o espacios."""
+    if not color_str:
+        return ""
+    c = color_str.strip().lstrip("#")
+    # Validar formato hex de 6 caracteres
+    if re.fullmatch(r"^[0-9a-fA-F]{6}$", c):
+        return c.lower()
+    # Si viene en formato 3 caracteres (ej: f0a -> ff00aa)
+    if re.fullmatch(r"^[0-9a-fA-F]{3}$", c):
+        return "".join(ch * 2 for ch in c).lower()
+    return ""
+
+def apply_asus_color(hex_color: str) -> bool:
+    """Ejecuta asusctl aura effect static con el color hexadecimal sin #."""
+    cleaned = clean_hex(hex_color)
+    if not cleaned:
+        print(f"[asus-sync-led] Error: Color hexadecimal inválido '{hex_color}'", file=sys.stderr)
+        return False
+
+    cmd = ["asusctl", "aura", "effect", "static", "-c", cleaned]
+    try:
+        res = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        print(f"[asus-sync-led] ✓ Color LED aplicado: #{cleaned}", flush=True)
+        return True
+    except subprocess.CalledProcessError as e:
+        print(f"[asus-sync-led] Error al ejecutar asusctl: {e.stderr.strip()}", file=sys.stderr, flush=True)
+        return False
+    except FileNotFoundError:
+        print("[asus-sync-led] Error: asusctl no está instalado en el sistema.", file=sys.stderr, flush=True)
+        return False
+
+def get_color_from_ambxst_cache() -> str:
+    """Extrae el color primario del archivo de caché de ambxst."""
+    if not CACHE_COLORS.exists():
+        return ""
+    try:
+        with open(CACHE_COLORS, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            # Prioridad: primary > sourceColor > blue > cyan
+            for key in ["primary", "sourceColor", "blue", "cyan"]:
+                val = data.get(key)
+                if val:
+                    cleaned = clean_hex(val)
+                    if cleaned:
+                        return cleaned
+    except Exception as e:
+        print(f"[asus-sync-led] Aviso leyendo {CACHE_COLORS}: {e}", file=sys.stderr)
+    return ""
+
+def extract_color_from_file(file_path: Path) -> str:
+    """Extrae el color representativo de una imagen o video usando matugen o ffmpeg."""
+    if not file_path.exists():
+        print(f"[asus-sync-led] Error: Archivo no encontrado: {file_path}", file=sys.stderr)
+        return ""
+
+    target_image = file_path
+
+    # Si es video, extraer un fotograma o buscar miniatura
+    video_exts = {".mp4", ".mkv", ".mov", ".webm", ".avi"}
+    if file_path.suffix.lower() in video_exts:
+        # Chequear si Ambxst ya tiene miniatura
+        thumb_name = file_path.stem + ".jpg"
+        cached_thumb = CACHE_THUMBS / thumb_name
+        if cached_thumb.exists():
+            target_image = cached_thumb
+        else:
+            # Extraer con ffmpeg a /tmp
+            tmp_thumb = Path(f"/tmp/asus_wall_thumb_{os.getpid()}.jpg")
+            try:
+                subprocess.run([
+                    "ffmpeg", "-y", "-ss", "00:00:01", "-i", str(file_path),
+                    "-vframes", "1", "-q:v", "2", str(tmp_thumb)
+                ], capture_output=True, check=True)
+                target_image = tmp_thumb
+            except Exception as e:
+                print(f"[asus-sync-led] Error extrayendo fotograma del video: {e}", file=sys.stderr)
+                return ""
+
+    # Usar matugen image --dry-run -j hex
+    try:
+        proc = subprocess.run([
+            "matugen", "image", str(target_image), "--dry-run", "-j", "hex"
+        ], capture_output=True, text=True, check=True)
+        mat_data = json.loads(proc.stdout)
+        # Extraer primary color de dark mode
+        colors = mat_data.get("colors", {})
+        dark_colors = colors.get("dark", {})
+        prim = dark_colors.get("primary") or mat_data.get("source_color")
+        if prim:
+            return clean_hex(prim)
+    except Exception as e:
+        print(f"[asus-sync-led] Error procesando con matugen: {e}", file=sys.stderr)
+
+    return ""
+
+def watch_cache(interval: float = 0.5):
+    """Monitorea el archivo colors.json y sincroniza el LED cuando cambie."""
+    print(f"[asus-sync-led] Monitoreando cambios en {CACHE_COLORS}...", flush=True)
+    last_mtime = 0.0
+    last_color = ""
+
+    # Primera sincronización inmediata si existe
+    curr_color = get_color_from_ambxst_cache()
+    if curr_color:
+        apply_asus_color(curr_color)
+        last_color = curr_color
+
+    while True:
+        try:
+            if CACHE_COLORS.exists():
+                mtime = CACHE_COLORS.stat().st_mtime
+                if mtime != last_mtime:
+                    last_mtime = mtime
+                    # Esperar 50ms para que termine de escribirse
+                    time.sleep(0.05)
+                    color = get_color_from_ambxst_cache()
+                    if color and color != last_color:
+                        last_color = color
+                        apply_asus_color(color)
+            time.sleep(interval)
+        except KeyboardInterrupt:
+            print("\n[asus-sync-led] Monitoreo detenido.", flush=True)
+            break
+        except Exception as e:
+            time.sleep(interval)
+
+def main():
+    parser = argparse.ArgumentParser(description="Sincronizador de color LED Asus TUF con fondo de pantalla")
+    parser.add_argument("target", nargs="?", help="Color hexadecimal (ej: ff00ff) o ruta de imagen/video de fondo")
+    parser.add_argument("-w", "--watch", action="store_true", help="Modo demonio: vigilar cambios en el tema de fondo")
+    parser.add_argument("--hex", help="Forzar un color hexadecimal específico")
+    parser.add_argument("--wall", help="Extraer color de una imagen o video específico")
+    args = parser.parse_args()
+
+    if args.watch:
+        watch_cache()
+        return
+
+    # Si se pasó --hex
+    if args.hex:
+        c = clean_hex(args.hex)
+        if c:
+            apply_asus_color(c)
+            sys.exit(0)
+        else:
+            sys.exit(1)
+
+    # Si se pasó --wall
+    if args.wall:
+        c = extract_color_from_file(Path(args.wall))
+        if c:
+            apply_asus_color(c)
+            sys.exit(0)
+        else:
+            sys.exit(1)
+
+    # Si se pasó target posicional
+    if args.target:
+        target_path = Path(args.target).expanduser().resolve()
+        if target_path.exists() and target_path.is_file():
+            c = extract_color_from_file(target_path)
+            if c:
+                apply_asus_color(c)
+                sys.exit(0)
+            else:
+                sys.exit(1)
+        else:
+            # Probar si es un color hex
+            c = clean_hex(args.target)
+            if c:
+                apply_asus_color(c)
+                sys.exit(0)
+            else:
+                print(f"[asus-sync-led] Error: '{args.target}' no es un archivo ni un color hex válido.", file=sys.stderr)
+                sys.exit(1)
+
+    # Si no se pasó argumentos: sincronizar desde la caché de Ambxst
+    c = get_color_from_ambxst_cache()
+    if c:
+        apply_asus_color(c)
+        sys.exit(0)
+    else:
+        print("[asus-sync-led] No se encontró caché de colores ni se especificó un argumento.", file=sys.stderr)
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

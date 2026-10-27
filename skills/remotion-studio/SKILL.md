@@ -1,6 +1,6 @@
 ---
 name: remotion-studio
-description: Preview a Remotion video
+description: Preview and debug Remotion compositions in Remotion Studio. Use when launching the local preview server, inspecting frames or debugging video.
 version: 4.0.535
 ---
 

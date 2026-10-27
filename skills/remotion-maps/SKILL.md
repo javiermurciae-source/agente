@@ -1,6 +1,6 @@
 ---
 name: remotion-maps
-description: Remotion Map animation knowledge
+description: Animate interactive maps and geographic routes in Remotion. Use when animating maps, travel routes, geospatial markers or location pins.
 version: 4.0.535
 ---
 

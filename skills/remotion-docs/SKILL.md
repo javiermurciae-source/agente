@@ -1,6 +1,6 @@
 ---
 name: remotion-docs
-description: Search Remotion documentation
+description: Search Remotion documentation and API reference. Use when looking up Remotion functions, hooks, components, properties or configuration.
 version: 4.0.535
 ---
 

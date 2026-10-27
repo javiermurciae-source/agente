@@ -13,6 +13,7 @@ Audita una skill bajo el Estándar de Oro:
 import sys
 import os
 import re
+import subprocess
 import argparse
 from pathlib import Path
 

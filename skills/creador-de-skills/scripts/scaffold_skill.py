@@ -11,6 +11,7 @@ Crea la estructura modular estándar:
 
 import sys
 import os
+import re
 import argparse
 from pathlib import Path
 

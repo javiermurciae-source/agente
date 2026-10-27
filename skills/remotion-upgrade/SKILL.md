@@ -1,6 +1,6 @@
 ---
 name: remotion-upgrade
-description: Upgrade Remotion, and related packages
+description: Upgrade Remotion packages and dependencies safely. Use when updating Remotion versions, migrating APIs or fixing deprecated video methods.
 version: 4.0.535
 ---
 

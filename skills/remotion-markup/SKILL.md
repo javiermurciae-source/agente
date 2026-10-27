@@ -1,6 +1,6 @@
 ---
 name: remotion-markup
-description: Content, animation and effects best practices
+description: Best practices for Remotion React markup, animation and effects. Use when creating components, layout structures, visual effects or transitions.
 version: 4.0.535
 ---
 

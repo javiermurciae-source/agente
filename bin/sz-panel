@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Stream Zone Management Panel Launcher (sz-panel)
+# Inicia el panel web en http://localhost:5050 y lo enfoca en el navegador.
+# ==============================================================================
+
+PORT=5050
+URL="http://localhost:$PORT"
+
+# 1. Verificar si el servicio de systemd existe y activarlo si no está corriendo
+if ! systemctl --user is-active --quiet sz-panel.service 2>/dev/null; then
+    echo "⚡ Iniciando servicio sz-panel en background..."
+    systemctl --user daemon-reload
+    systemctl --user start sz-panel.service
+    sleep 1
+fi
+
+# 2. Si no responde por systemd, fallback a proceso background directo
+if ! curl -s --head "$URL" >/dev/null 2>&1; then
+    echo "⚡ Levantando servidor sz-panel directamente..."
+    nohup /usr/bin/python3 /home/rootkit/agente/tools/sz_panel/server.py > /tmp/sz_panel.log 2>&1 &
+    sleep 1.5
+fi
+
+# 3. Abrir en navegador de forma no bloqueante
+echo "🌐 Abriendo Stream Zone Panel en $URL..."
+nohup xdg-open "$URL" >/dev/null 2>&1 &
+echo "✅ Panel activo en $URL"
+

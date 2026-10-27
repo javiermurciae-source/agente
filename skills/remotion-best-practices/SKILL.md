@@ -1,6 +1,6 @@
 ---
 name: remotion-best-practices
-description: Router for all Remotion skills
+description: Router and master guide for all Remotion video skills. Use when choosing between Remotion workflows, sub-skills or project architectures.
 version: 4.0.535
 ---
 

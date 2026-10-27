@@ -33,8 +33,23 @@
   - Prohibido responder con explicaciones largas, listas teóricas o manuales de uso a menos que se pidan explícitamente.
   - Entregar únicamente el resultado final en 2 a 5 líneas con enlaces a los archivos creados.
 - **Ahorro Extremo de Tokens en Proyectos (Graphify & RTK)**:
-  - Al trabajar en cualquier base de código o proyecto en `~/Proyectos/`, sugerir o ejecutar de inmediato `graphify .` para mapear la arquitectura y navegar la wiki local (`graphify-out/wiki/index.md`) en vez de quemar tokens leyendo archivos crudos a ciegas.
+  - **Cuándo usar `graphify`**: Estrictamente en bases de código grandes, arquitecturas complejas o ingeniería inversa (ej. `kontalid`, deconstrucción/recompilación web `decomp recomp web`). En esos casos, ejecutar `graphify .` para mapear el grafo y navegar la wiki local (`graphify-out/wiki/index.md`) sin quemar tokens leyendo código crudo.
+  - **Cuándo NO usar `graphify`**: En tareas rápidas, fixes puntuales o scripts directos; resolver de inmediato por la ruta más corta con máxima velocidad.
   - Usar siempre el proxy `rtk` para comandos de terminal (`rtk git status`, `rtk git diff`, `rtk ls`, etc.).
+- **Plantillas y Clonación Exacta (1:1)**:
+  - Directorio maestro: `~/plantillas/` (`/home/rootkit/agente/plantillas/`), subcarpetas `apa7/`, `documentos/`, `ieee/`, `presentaciones/`, `ui-ux-pro-max/`, o `~/Descargas/`.
+  - Ante cualquier plantilla pasada por Camilo, ejecutar clonación exacta 1:1 (reversing de estilos, tablas, espaciados y tipografía).
+- **Investigación Web y Grounding con NotebookLM**:
+  - Usar `notebooklm` e interacción conversacional como apoyo para salir a internet, procesar fuentes reales y obtener datos duros verificados con citas.
+- **UI y Apps siempre con Skills (Cero Diseños Feos)**:
+  - Para toda interfaz gráfica, web o diseño visual, usar obligatoriamente `impeccable` (lenguaje de diseño de Paul Bakaus), `frontend-design`, `web-design-guidelines` y `ui-ux-pro-max`.
+  - Para aplicaciones React y React Native, usar obligatoriamente `react-native-best-practices`, `vercel-react-native-skills` y `browser-testing-with-devtools`.
+- **Modo `ponytail` Obligatorio (Cero Trabajo de Más)**:
+  - Aplicar siempre la mentalidad senior de `ponytail`: la solución más pequeña, limpia y directa que resuelva al 100% la tarea. Prohibido hacer trabajo de más, sobre-ingeniería o inflar código innecesariamente.
+- **Edición Multimedia Local con `ffmpeg-skill`**:
+  - Para cualquier tarea de video, recorte, subtítulos, reencuadre vertical/horizontal (9:16 Reels/TikTok vs 16:9 YouTube), audio LUFS o procesamiento de imágenes con FFmpeg: usar obligatoriamente `ffmpeg-skill` (100% local).
+- **Automatización de Software con `cli-anything` (Prioridad Alta)**:
+  - Activo estratégico esencial: emplear los adaptadores y harnesses de `cli-anything` para volver agent-native y controlar por terminal software complejo o programas de diseño/3D/streaming (GIMP, Inkscape, Blender, OBS Studio, Audacity, etc.) sin depender de interfaces gráficas.
 
 
 ---
@@ -70,7 +85,6 @@ agente/ (o $HOME/)
 │   ├── presentaciones-elite-html/ # Decks web interactivos en archivo único (16:9)
 │   ├── frontend-design/ canvas-design/ web-design-guidelines # Diseño web, arte visual y UI anti-slop (Anthropic / Vercel)
 │   ├── motion-design-elite/ motion-design / remotion (suite oficial) # Video con código React, físicas de resorte y Lottie
-│   ├── pizarra-animada/       # Videos de pizarra blanca (handanim / sketchling, trazo a mano y locución)
 │   ├── agent-browser/         # Navegación web headless y automation (Vercel)
 │   ├── escritura-humana-antislop/ # Redacción humana profunda (StoryScope arXiv:2604.03136)
 │   ├── reversing-clonacion-docx-ieee/ # Clonación de informes IEEE para UNISANGIL
@@ -80,7 +94,8 @@ agente/ (o $HOME/)
 │   ├── descargas-aria2-turbo/ # Descargas aceleradas multi-hilo con aria2-fast
 │   ├── reverse-engineer-anything/ # REA: Ingeniería inversa de binarios, .NET, JS/Electron y runtimes
 │   ├── web-scraping-automatizacion/ scrapling-mcp/ just-scrape/ agent-reach # Scraping anti-bot, ScrapeGraphAI y Social Reach
-│   ├── caveman/ grill-me/ rtk-token-killer / graphify # Optimización extrema de tokens, voz telegráfica y grafos AST
+│   ├── caveman/ grill-me/ rtk-token-killer / graphify / ponytail # Optimización de tokens, senior dev minimalista y grafos AST
+│   ├── portability-audit/     # Auditoría de portabilidad: ¿corre esto en Linux? (LOC por capa, frontera de abstracción, esfuerzo)
 │   └── [streamzone]/          # Operativa Stream Zone (vencimientos, catálogo, whatsapp)
 ├── contexto/                  # Base de conocimiento (políticas, APIs, entorno y hardware)
 │   ├── comunicacion.md

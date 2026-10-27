@@ -1,6 +1,6 @@
 ---
 name: remotion-interactivity
-description: Structure Remotion markup for interactivity
+description: Structure Remotion markup for interactivity and control. Use when building interactive players, dynamic controls or parameter-driven videos.
 version: 4.0.535
 ---
 

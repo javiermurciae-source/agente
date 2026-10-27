@@ -1,6 +1,6 @@
 ---
 name: remotion-saas
-description: Build an app with Remotion
+description: Build video generation SaaS apps and Lambda rendering with Remotion. Use when architecting cloud video pipelines, server-side renders or SaaS tools.
 version: 4.0.535
 ---
 

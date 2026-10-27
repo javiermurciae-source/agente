@@ -1,6 +1,6 @@
 ---
 name: remotion-multimedia
-description: Interacting with Mediabunny
+description: Process audio, waveforms and media assets with Mediabunny. Use when manipulating audio tracks, generating waveforms or handling media in Remotion.
 version: 4.0.535
 ---
 

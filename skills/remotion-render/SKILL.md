@@ -1,6 +1,6 @@
 ---
 name: remotion-render
-description: Export a Remotion video
+description: Export and render Remotion videos to MP4, WebM or frames. Use when rendering compositions, configuring video codecs or batch exporting video.
 version: 4.0.535
 ---
 

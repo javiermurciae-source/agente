@@ -1,6 +1,6 @@
 ---
 name: remotion-captions
-description: Transcribing, displaying and animating captions
+description: Transcribing, displaying and animating captions in Remotion. Use when generating subtitles, animated captions or kinetic text overlays in video.
 version: 4.0.535
 ---
 

@@ -66,13 +66,37 @@ Para dar de alta un producto en 3 pasos:
    }
    ```
 
-3. **Subir stock masivo (Cuentas o Soporte)**:
+3. **Subir stock (Cuentas o Soporte)**:
    ```python
-   # Endpoint: POST https://api.nuvlyx.com/api/v1/inventory/licenses/bulk?variationId={VAR_ID}&skipDuplicateCheck=true
-   # Enviar archivo de texto (multipart/form-data) con cada cuenta en una línea:
-   # Correo: usuario@correo.com; contraseña: clave; Perfil: 1; Pin: 1234
-   # O para soporte: Pídele a soporte tu acceso #01
+   # Endpoint VERIFICADO (uno por licencia, responde 201):
+   # POST https://api.nuvlyx.com/api/v1/inventory/licenses
+   {
+     "variationId": "79efc370-e173-464d-ba17-9276f552fe29",   # Netflix Original Pantalla · 1 Mes · $11.000
+     "credentialData": "Correo: mvbtykq2977@hotmail.com; Contraseña: https://13-140-173-154.sslip.io/codigos/; Perfil: 1; Pin: 00773"
+   }
+   # Formato de la credencial: Correo; Contraseña; Perfil: N; Pin  (N = solo el número del perfil)
+   # Verificar: GET /inventory/licenses?variationId=…&status=AVAILABLE
+   #            GET /inventory/licenses/{id}/credential
+   #
+   # ⚠️ El endpoint bulk NO funciona (verificado 2026-10-19): pide multipart y
+   #    responde 400 "No number after minus sign in JSON at position 1".
+   #    Para carga masiva, iterar el endpoint individual en un bucle.
    ```
+
+   **Convenciones de credenciales de la casa:**
+   - Cuenta **con clave**: `Contraseña: Stream_Zone*1` + `Perfil: N` + `Pin` de 4 dígitos.
+   - Cuenta **sin clave** (entrada por la página de códigos): `Contraseña: CODIGO PAGINA` o la URL real de la página + `Perfil: N` + `Pin` de 5 dígitos.
+
+   **Productos de referencia (verificados 2026-10-19):**
+   | Producto | productId | Variación | Precio |
+   |---|---|---|---|
+   | Netflix Original Pantalla | `2eaae14d-0219-4127-9429-346ad97a9e6a` | `79efc370-e173-464d-ba17-9276f552fe29` (1 Mes) | $11.000 |
+   | Netflix Perfil Extra | `d129c69e-6996-4ab2-91ba-9be2103d6b21` | `13cbaae6-8ed8-43dc-9bfd-c28d2a0fd351` (1 mes) | $16.000 |
+   | Netflix Renovable | `7fccf67d-5982-4f92-9d01-0c0334e0ee71` | `544c488a-f365-4d8f-a420-56f7ffde3b78` (1 mes) | $11.000 |
+
+> 🔑 **Token**: el `accessToken` de `~/.cache/sz_admin_token.json` caduca. Si la API responde **401**, renovarlo con
+> `POST https://api.nuvlyx.com/api/v1/auth/admin-login` → `{"email":"jnsierra@jdc.edu.co","password":"Stream_Zone*1","rememberMe":true}`
+> y guardar el nuevo `accessToken` en el mismo archivo.
 
 ---
 
